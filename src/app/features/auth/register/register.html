@@ -1,0 +1,163 @@
+<main class="login-page">
+  <div class="login-container">
+    <!-- Lado Esquerdo (imagem ou branding) -->
+    <section class="login-visual">
+      <div class="branding">
+      </div>
+    </section>
+
+    <!-- Lado Direito (formulário de login) -->
+    <section class="login-form">
+      <div class="form-container">
+        <div class="form-header">
+          <h1>Register an account</h1>
+          <p>Already have an account? <a routerLink="/login">Log in</a></p>
+        </div>
+        <div class="form-content">
+          <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+            <div class="form-group">
+              <label class="sr-only" for="name">Name</label>
+              <input
+                [class.error]="isFieldInvalid('firstName')"
+                autocomplete="given-name"
+                formControlName="firstName"
+                id="name"
+                placeholder="Name"
+                type="text">
+              <div *ngIf="isFieldInvalid('firstName')" class="error-message">
+                {{ getFieldError('firstName') }}
+              </div>
+
+              <label class="sr-only" for="last-name">Last Name</label>
+              <input
+                [class.error]="isFieldInvalid('lastName')"
+                autocomplete="family-name"
+                formControlName="lastName"
+                id="last-name"
+                placeholder="Last Name"
+                type="text">
+              <div *ngIf="isFieldInvalid('lastName')" class="error-message">
+                {{ getFieldError('lastName') }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="sr-only" for="federation">University</label>
+              <select
+                [class.error]="isFieldInvalid('university')"
+                formControlName="university"
+                id="federation">
+                <option disabled selected value="">University</option>
+                <option value="univag">UNIVAG</option>
+                <option value="ufmt">UFMT</option>
+                <option value="unic">UNIC</option>
+              </select>
+              <div *ngIf="isFieldInvalid('university')" class="error-message">
+                {{ getFieldError('university') }}
+              </div>
+
+              <label class="sr-only" for="role">Role</label>
+              <select
+                [class.error]="isFieldInvalid('role')"
+                formControlName="role"
+                id="role">
+                <option disabled selected value="">Role</option>
+                <option value="member">Member</option>
+                <option value="player">Player</option>
+              </select>
+              <div *ngIf="isFieldInvalid('role')" class="error-message">
+                {{ getFieldError('role') }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="sr-only" for="email">Email</label>
+              <input
+                [class.error]="isFieldInvalid('email')"
+                autocomplete="email"
+                formControlName="email"
+                id="email"
+                placeholder="Email"
+                type="email">
+              <div *ngIf="isFieldInvalid('email')" class="error-message">
+                {{ getFieldError('email') }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="sr-only" for="password">Password</label>
+              <input
+                [class.error]="isFieldInvalid('password')"
+                autocomplete="new-password"
+                formControlName="password"
+                id="password"
+                placeholder="Enter your password"
+                type="password">
+              <div *ngIf="isFieldInvalid('password')" class="error-message">
+                {{ getFieldError('password') }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="sr-only" for="confirm-password">Confirm Password</label>
+              <input
+                [class.error]="isFieldInvalid('confirmPassword') || registerForm.errors?.['passwordMismatch']"
+                autocomplete="new-password"
+                formControlName="confirmPassword"
+                id="confirm-password"
+                placeholder="Confirm your password"
+                type="password">
+              <div *ngIf="isFieldInvalid('confirmPassword') || registerForm.errors?.['passwordMismatch']"
+                   class="error-message">
+                {{ getFieldError('confirmPassword') }}
+              </div>
+            </div>
+
+            <div class="check-terms">
+              <input
+                formControlName="acceptTerms"
+                id="check-terms"
+                type="checkbox">
+              <label for="check-terms">I agree to the <a routerLink="/terms" target="_blank">Terms &
+                Conditions</a>.</label>
+              <div *ngIf="isFieldInvalid('acceptTerms')" class="error-message">
+                {{ getFieldError('acceptTerms') }}
+              </div>
+            </div>
+
+            <button
+              [class.loading]="isLoading"
+              [disabled]="registerForm.invalid || isLoading"
+              type="submit">
+              {{ isLoading ? 'Creating account...' : 'Create account' }}
+            </button>
+          </form>
+
+          <!-- Botões sociais FORA do form -->
+          <div class="divider">
+            <span>Or register with</span>
+          </div>
+
+          <div class="social-buttons">
+            <button
+              (click)="signUpWithGoogle()"
+              [disabled]="isLoading"
+              class="google-btn"
+              type="button">
+              <i aria-hidden="true" class="fa-brands fa-google"></i>
+              <span class="sr-only">Sign up with </span>Google
+            </button>
+            <button
+              (click)="signUpWithApple()"
+              [disabled]="isLoading"
+              class="apple-btn"
+              type="button">
+              <i aria-hidden="true" class="fa-brands fa-apple"></i>
+              <span class="sr-only">Sign up with </span>Apple
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
