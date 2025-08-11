@@ -1,13 +1,18 @@
-[data-theme="light"] {
-  --primary-color: #6D54B5;
+body[data-theme="light"] {
+  --primary-color: #6366f1;
+  --primary-color-dark: #4f46e5;
+  --primary-color-light: #818cf8;
+  --secondary-color: #f8fafc;
+  --secondary-color-darker: #e2e8f0;
   --background-color: #ffffff;
-  --text-color: #2c3e50;
-  --text-secondary: #6c757d;
-
-  // Cores específicas do tema claro
-  --card-background: #f8f9fa;
-  --border-color: #dee2e6;
-  --input-background: #ffffff;
-  --input-border: #ced4da;
+  --text-color: #1f2937;
+  --text-secondary: #6b7280;
+  --sidebar-bg: #ffffff;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --hover-bg: rgba(0, 0, 0, 0.05);
+  --card-background: #ffffff;
+  --input-background: #f8fafc;
+  --input-border: #e2e8f0;
   --shadow: rgba(0, 0, 0, 0.1);
+
 }

@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {Login} from './features/auth/login/login';
 import {Register} from './features/auth/register/register';
+import {TeamManagement} from './features/dashboard/team-management/team-management';
 
 const routes: Routes = [
   {
@@ -13,13 +14,17 @@ const routes: Routes = [
     component: Register
   },
   {
+    path: 'team-management',
+    component: TeamManagement
+  },
+  {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/team-management',
     pathMatch: 'full'
   },
   {
-    path: '**', // Rota wildcard para 404
-    redirectTo: '/login'
+    path: '**',
+    redirectTo: '/team-management'
   }
 ];
 

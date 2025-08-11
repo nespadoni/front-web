@@ -1,9 +1,13 @@
 // Tema escuro (padrão) - apenas sobrescreve se necessário
-:root {
-  --primary-color: #6D54B5;
-  --background-color: #2C2638;
+:root, body[data-theme="dark"] {
+  --primary-color: #6623F0;
+  --primary-color-dark: #531ac9;
+  --primary-color-light: #bb98ff;
+  --background-color: #0F1319;
   --text-color: #ffffff;
-  --text-secondary: #a398bb;
+  --text-secondary: #728296;
+  --secondary-color: #1e252f;
+  --tertiary-color: #323c4b;
 
   // Cores adicionais para o tema escuro
   --card-background: #3a3346;
@@ -11,4 +15,6 @@
   --input-background: #3a3346;
   --input-border: #4a4557;
   --shadow: rgba(0, 0, 0, 0.3);
+  --sidebar-bg: #1e252f;
+  --hover-bg: rgba(255, 255, 255, 0.1);
 }

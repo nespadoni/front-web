@@ -1,11 +1,27 @@
-import { Component, signal } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
+import {filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.html',
   standalone: false,
+  templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {
-  protected readonly title = signal('front-web');
+export class AppComponent implements OnInit {
+  isAuthRoute = false;
+
+  constructor(private router: Router) {
+  }
+
+  ngOnInit() {
+    // Escuta mudanças de rota
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        // Lista das páginas que NÃO devem ter sidebar
+        const authRoutes = ['/login', '/register'];
+        this.isAuthRoute = authRoutes.some(route => event.urlAfterRedirects.includes(route));
+      });
+  }
 }
