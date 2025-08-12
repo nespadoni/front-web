@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {Login} from './features/auth/login/login';
 import {Register} from './features/auth/register/register';
 import {TeamManagement} from './features/dashboard/team-management/team-management';
+import {Home} from './features/feed/home/home';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'team-management',
     component: TeamManagement
+  },
+  {
+    path: 'home',
+    component: Home
   },
   {
     path: '',

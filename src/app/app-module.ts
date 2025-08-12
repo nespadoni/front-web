@@ -13,6 +13,8 @@ import {Athletic} from './features/profile/athletic/athletic';
 import {User} from './features/profile/user/user';
 import {SidebarComponent} from './layouts/sidebar/sidebar';
 import {Footer} from './layouts/footer/footer';
+import { Socialbar } from './layouts/socialbar/socialbar';
+import { Header } from './layouts/header/header';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import {Footer} from './layouts/footer/footer';
     Athletic,
     User,
     SidebarComponent,
-    Footer
+    Footer,
+    Socialbar,
+    Header
   ],
   imports: [
     BrowserModule,

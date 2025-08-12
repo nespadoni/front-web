@@ -1,24 +1,16 @@
-<header [class.animating]="isAnimating" [class.minimized]="isMinimized" class="sidebar">
+<aside class="sidebar-left">
   <div class="sidebar-layout">
     <div class="sidebar-header">
       <div class="logo-container">
         <div class="logo-wrapper">
           <a href="/">
-            <img [class.logo-expanded]="!isMinimized"
-                 [class.logo-minimized]="isMinimized"
-                 alt="Rivaly Logo"
+            <img alt="Rivaly Logo"
                  class="main-logo"
                  src="/rivaly-icon-1x.ico">
           </a>
         </div>
       </div>
-      <button (click)="toggleSidebar()"
-              [attr.aria-label]="isMinimized ? 'Expand sidebar' : 'Collapse sidebar'"
-              class="toggle-btn">
-        <span class="btn-ripple">
-          <i [class.fa-arrow-left]="!isMinimized" [class.fa-arrow-right]="isMinimized" class="fa"></i>
-        </span>
-      </button>
+      <!-- Botão de toggle removido completamente -->
     </div>
 
     <div class="sidebar-content">
@@ -26,14 +18,14 @@
         <!-- NAVIGATE -->
         <ul class="menu-section">
           <li class="sidebar-menu-header">
-            <span [style.display]="isMinimized ? 'none' : 'block'" class="header-text item-description">ARENA</span>
+            <span class="header-text item-description">ARENA</span>
           </li>
           <li class="sidebar-menu-item">
             <a class="menu-link" href="">
               <span class="sidebar-menu-icon">
                 <i class="fa fa-house"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'" class="menu-title item-description">Home</span>
+              <span class="menu-title item-description">Home</span>
             </a>
           </li>
           <li class="sidebar-menu-item">
@@ -41,8 +33,7 @@
               <span class="sidebar-menu-icon">
                 <i class="fa fa-tv"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'"
-                    class="menu-title item-description">Live Matches</span>
+              <span class="menu-title item-description">Live Matches</span>
             </a>
           </li>
           <li class="sidebar-menu-item">
@@ -50,8 +41,7 @@
               <span class="sidebar-menu-icon">
                 <i class="fa fa-star"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'"
-                    class="menu-title item-description">Highlights</span>
+              <span class="menu-title item-description">Highlights</span>
             </a>
           </li>
           <li class="sidebar-menu-item">
@@ -59,8 +49,7 @@
               <span class="sidebar-menu-icon">
                 <i class="fa fa-medal"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'"
-                    class="menu-title item-description">Leaderboards</span>
+              <span class="menu-title item-description">Leaderboards</span>
             </a>
           </li>
         </ul>
@@ -69,16 +58,14 @@
         <!-- PROFILES -->
         <ul class="menu-section">
           <li class="sidebar-menu-header">
-            <span [style.display]="isMinimized ? 'none' : 'block'"
-                  class="header-text item-description">COMPETITIONS</span>
+            <span class="header-text item-description">COMPETITIONS</span>
           </li>
           <li class="sidebar-menu-item">
             <a class="menu-link" href="">
               <span class="sidebar-menu-icon">
                 <i class="fa fa-trophy"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'"
-                    class="menu-title item-description">Tournaments</span>
+              <span class="menu-title item-description">Tournaments</span>
             </a>
           </li>
           <li class="sidebar-menu-item">
@@ -86,7 +73,7 @@
               <span class="sidebar-menu-icon">
                 <i class="fa fa-flag-checkered"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'" class="menu-title item-description">Matches</span>
+              <span class="menu-title item-description">Matches</span>
             </a>
           </li>
           <li class="sidebar-menu-item">
@@ -94,7 +81,7 @@
               <span class="sidebar-menu-icon">
                 <i class="fa fa-calendar-days"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'" class="menu-title item-description">Fixtures</span>
+              <span class="menu-title item-description">Fixtures</span>
             </a>
           </li>
           <li class="sidebar-menu-item">
@@ -102,7 +89,7 @@
               <span class="sidebar-menu-icon">
                 <i class="fa fa-list-ol"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'" class="menu-title item-description">Results</span>
+              <span class="menu-title item-description">Results</span>
             </a>
           </li>
         </ul>
@@ -111,15 +98,14 @@
         <!-- TEAMS -->
         <ul class="menu-section">
           <li class="sidebar-menu-header">
-            <span [style.display]="isMinimized ? 'none' : 'block'"
-                  class="header-text item-description">TEAMS & PLAYERS</span>
+            <span class="header-text item-description">TEAMS & PLAYERS</span>
           </li>
           <li class="sidebar-menu-item">
             <a class="menu-link" href="">
               <span class="sidebar-menu-icon">
                 <i class="fa fa-users"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'" class="menu-title item-description">Teams</span>
+              <span class="menu-title item-description">Teams</span>
             </a>
           </li>
           <li class="sidebar-menu-item">
@@ -127,7 +113,7 @@
               <span class="sidebar-menu-icon">
                 <i class="fa fa-person-running"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'" class="menu-title item-description">Athletes</span>
+              <span class="menu-title item-description">Athletes</span>
             </a>
           </li>
           <li class="sidebar-menu-item">
@@ -135,7 +121,7 @@
               <span class="sidebar-menu-icon">
                 <i class="fa fa-user-group"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'" class="menu-title item-description">Members</span>
+              <span class="menu-title item-description">Members</span>
             </a>
           </li>
           <li class="sidebar-menu-item">
@@ -143,7 +129,7 @@
               <span class="sidebar-menu-icon">
                 <i class="fa fa-school"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'" class="menu-title item-description">Schools</span>
+              <span class="menu-title item-description">Schools</span>
             </a>
           </li>
         </ul>
@@ -152,15 +138,14 @@
         <!-- PERFORMANCE -->
         <ul class="menu-section">
           <li class="sidebar-menu-header">
-            <span [style.display]="isMinimized ? 'none' : 'block'"
-                  class="header-text item-description">PERFORMANCE</span>
+            <span class="header-text item-description">PERFORMANCE</span>
           </li>
           <li class="sidebar-menu-item">
             <a class="menu-link" href="">
               <span class="sidebar-menu-icon">
                 <i class="fa fa-ranking-star"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'" class="menu-title item-description">Rankings</span>
+              <span class="menu-title item-description">Rankings</span>
             </a>
           </li>
           <li class="sidebar-menu-item">
@@ -168,8 +153,7 @@
               <span class="sidebar-menu-icon">
                 <i class="fa fa-chart-line"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'"
-                    class="menu-title item-description">Stats & Records</span>
+              <span class="menu-title item-description">Stats & Records</span>
             </a>
           </li>
           <li class="sidebar-menu-item">
@@ -177,8 +161,7 @@
               <span class="sidebar-menu-icon">
                 <i class="fa fa-clock-rotate-left"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'"
-                    class="menu-title item-description">Season History</span>
+              <span class="menu-title item-description">Season History</span>
             </a>
           </li>
         </ul>
@@ -187,16 +170,14 @@
         <!-- MANAGEMENT (ADMIN ONLY) -->
         <ul class="menu-section">
           <li class="sidebar-menu-header">
-            <span [style.display]="isMinimized ? 'none' : 'block'"
-                  class="header-text item-description">MANAGEMENT</span>
+            <span class="header-text item-description">MANAGEMENT</span>
           </li>
           <li class="sidebar-menu-item">
             <a class="menu-link" href="">
               <span class="sidebar-menu-icon">
                 <i class="fa fa-calendar-plus"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'"
-                    class="menu-title item-description">Event Setup</span>
+              <span class="menu-title item-description">Event Setup</span>
             </a>
           </li>
           <li class="sidebar-menu-item">
@@ -204,8 +185,7 @@
               <span class="sidebar-menu-icon">
                 <i class="fa fa-user-gear"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'"
-                    class="menu-title item-description">User Control</span>
+              <span class="menu-title item-description">User Control</span>
             </a>
           </li>
           <li class="sidebar-menu-item">
@@ -213,8 +193,7 @@
               <span class="sidebar-menu-icon">
                 <i class="fa fa-gear"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'"
-                    class="menu-title item-description">System Settings</span>
+              <span class="menu-title item-description">System Settings</span>
             </a>
           </li>
         </ul>
@@ -223,15 +202,14 @@
         <!-- INFO & MEDIA -->
         <ul class="menu-section">
           <li class="sidebar-menu-header">
-            <span [style.display]="isMinimized ? 'none' : 'block'"
-                  class="header-text item-description">INFO & MEDIA</span>
+            <span class="header-text item-description">INFO & MEDIA</span>
           </li>
           <li class="sidebar-menu-item">
             <a class="menu-link" href="">
               <span class="sidebar-menu-icon">
                 <i class="fa fa-newspaper"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'" class="menu-title item-description">News</span>
+              <span class="menu-title item-description">News</span>
             </a>
           </li>
           <li class="sidebar-menu-item">
@@ -239,7 +217,7 @@
               <span class="sidebar-menu-icon">
                 <i class="fa fa-scale-balanced"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'" class="menu-title item-description">Rules & Guidelines</span>
+              <span class="menu-title item-description">Rules & Guidelines</span>
             </a>
           </li>
           <li class="sidebar-menu-item">
@@ -247,25 +225,24 @@
               <span class="sidebar-menu-icon">
                 <i class="fa fa-circle-question"></i>
               </span>
-              <span [style.display]="isMinimized ? 'none' : 'block'" class="menu-title item-description">Support</span>
+              <span class="menu-title item-description">Support</span>
             </a>
           </li>
         </ul>
       </nav>
     </div>
 
-    <!-- User Sidebar integrada aqui - SEM event propagation -->
-    <div (click)="$event.stopPropagation()" [class.minimized]="isMinimized" class="sidebar-footer">
+    <!-- User Sidebar -->
+    <div class="sidebar-footer">
       <div class="user-content">
         <div class="user-avatar">
           <img alt="User Avatar" src="/assets/images/woman-avatar.jpg">
         </div>
-        <div [style.display]="isMinimized ? 'none' : 'flex'" class="user-info">
+        <div class="user-info">
           <span class="user-name item-description">Silvia Pocahontas</span>
           <span class="user-role item-description">Administrator</span>
         </div>
-        <div [style.display]="isMinimized ? 'none' : 'flex'" class="user-actions">
-          <!-- SEM event handling, apenas click direto -->
+        <div class="user-actions">
           <button (click)="toggleSettings()"
                   [class.active]="isSettingsOpen"
                   class="action-btn settings-btn"
@@ -277,9 +254,7 @@
       </div>
 
       <!-- Settings Popup -->
-      <div [class.open]="!isMinimized && isSettingsOpen"
-           [style.display]="isMinimized ? 'none' : 'block'"
-           class="settings-popup">
+      <div [class.open]="isSettingsOpen" class="settings-popup">
         <div (click)="$event.stopPropagation()" class="settings-content">
           <div class="settings-header">
             <h3>Configurações</h3>
@@ -296,7 +271,6 @@
                   {{ isDarkMode ? 'Modo Escuro' : 'Modo Claro' }}
                 </span>
               </div>
-              <!-- SEM event handling, apenas click direto -->
               <div (click)="toggleTheme()" class="theme-toggle">
                 <div [class.active]="isDarkMode" class="toggle-switch">
                   <div class="toggle-slider">
@@ -317,4 +291,4 @@
       </div>
     </div>
   </div>
-</header>
+</aside>

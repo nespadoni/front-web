@@ -1,6 +1,7 @@
-<div class="main-layout">
+<div [class.has-sidebar]="!isAuthRoute" class="main-layout">
   <app-sidebar *ngIf="!isAuthRoute"></app-sidebar>
   <div [class.full-width]="isAuthRoute" class="content-wrapper">
     <router-outlet></router-outlet>
   </div>
+  <app-socialbar *ngIf="!isAuthRoute"></app-socialbar>
 </div>
