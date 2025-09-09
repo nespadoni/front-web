@@ -1,126 +1,278 @@
 <aside class="sidebar-right">
   <div class="sidebar-layout">
-    <div class="sidebar-header">
-      <!-- Top Athletics Section -->
-      <h2>Top Athletics <a href="/athletics">See All</a></h2>
-      <div class="top-athletics">
-        <div class="athletic">
-          <img alt="Athletic Icon" src="/assets/images/athletic-icon.png">
-          <div class="athletic-info">
-            <h3>ISQUIMIA</h3>
-            <p>UNIVAG</p>
-          </div>
-        </div>
-        <div class="athletic">
-          <img alt="Athletic Icon" src="/assets/images/athletic-icon.png">
-          <div class="athletic-info">
-            <h3>AAEUF</h3>
-            <p>UNIDERP</p>
-          </div>
-        </div>
-        <div class="athletic">
-          <img alt="Athletic Icon" src="/assets/images/athletic-icon.png">
-          <div class="athletic-info">
-            <h3>AAAOC</h3>
-            <p>UNIVAG</p>
-          </div>
-        </div>
-        <div class="athletic">
-          <img alt="Athletic Icon" src="/assets/images/athletic-icon.png">
-          <div class="athletic-info">
-            <h3>AAAEXI</h3>
-            <p>UNIC</p>
-          </div>
-        </div>
-      </div>
 
-      <!-- Suggested People Section -->
-      <h2>Suggested People <a href="/members">See All</a></h2>
-      <div class="suggested-people">
-        <div class="person">
-          <img alt="User Avatar" src="/assets/images/user-avatar.jpg">
-          <div class="person-info">
-            <h3>John Doe</h3>
-            <p>@johndoe</p>
+    <!-- Stories das Atléticas -->
+    <div class="stories-section">
+      <h2>Top Athletics</h2>
+      <div class="stories-container">
+        <div class="story-item">
+          <div class="story-avatar">
+            <img alt="ISQUEMIA" src="/assets/images/athletics/athletic-icon.png">
           </div>
+          <span class="story-name">ISQUEMIA</span>
         </div>
-        <div class="person">
-          <img alt="User Avatar" src="/assets/images/user-avatar.jpg">
-          <div class="person-info">
-            <h3>Jane Smith</h3>
-            <p>@janesmith</p>
+        <div class="story-item">
+          <div class="story-avatar">
+            <img alt="AAEUF" src="/assets/images/athletics/athletic-icon.png">
           </div>
+          <span class="story-name">AAEUF</span>
         </div>
-        <div class="person">
-          <img alt="User Avatar" src="/assets/images/user-avatar.jpg">
-          <div class="person-info">
-            <h3>Mike Johnson</h3>
-            <p>@mikejohnson</p>
+        <div class="story-item">
+          <div class="story-avatar">
+            <img alt="AAAOC" src="/assets/images/athletics/athletic-icon.png">
           </div>
+          <span class="story-name">AAAOC</span>
         </div>
-        <div class="person">
-          <img alt="User Avatar" src="/assets/images/user-avatar.jpg">
-          <div class="person-info">
-            <h3>Emily Davis</h3>
-            <p>@emilydavis</p>
+        <div class="story-item">
+          <div class="story-avatar">
+            <img alt="AAAEXI" src="/assets/images/athletics/athletic-icon.png">
           </div>
-        </div>
-        <div class="person">
-          <img alt="User Avatar" src="/assets/images/user-avatar.jpg">
-          <div class="person-info">
-            <h3>Chris Brown</h3>
-            <p>@chrisbrown</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hot Posts Section -->
-      <h2>Hot Posts</h2>
-      <div class="trending-posts">
-        <div class="post">
-          <div class="post-header">
-            <img alt="User Avatar" src="/assets/images/user-avatar.jpg">
-            <h5>ISQUEMIA</h5>
-          </div>
-          <div class="post-content">
-            <h3>INTERMED: UNIVAG x UNIC!</h3>
-            <p>O dia foi simplesmente muito foda e muito competitivo!</p>
-          </div>
-        </div>
-        <div class="post">
-          <div class="post-header">
-            <img alt="User Avatar" src="/assets/images/user-avatar.jpg">
-            <h5>AAAEXI</h5>
-          </div>
-          <div class="post-content">
-            <h3>INTERMED: UCDB x UNIDERP!</h3>
-            <p>O dia foi simplesmente muito foda e muito competitivo!</p>
-          </div>
-        </div>
-        <div class="post">
-          <div class="post-header">
-            <img alt="User Avatar" src="/assets/images/user-avatar.jpg">
-            <h5>AAAESFU</h5>
-          </div>
-          <div class="post-content">
-            <h3>INTERMED: UNICAMP x UNIGRAN!</h3>
-            <p>O dia foi simplesmente muito foda e muito competitivo!</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Apoiadores Section -->
-      <h2>Apoiadores <a href="/patrocinadores">See All</a></h2>
-      <div class="patrocinio">
-        <div class="sponsors-grid">
-          <img alt="Sicoob Logo" src="/assets/images/sicoob-logo.png">
-          <img alt="Unimed Logo" src="/assets/images/unimed-logo.png">
-          <img alt="Unigran Logo" src="/assets/images/unigran-logo.png">
-          <img alt="Unic Logo" src="/assets/images/unic-logo.png">
-          <img alt="Uniderp Logo" src="/assets/images/uniderp-logo.png">
-          <img alt="UFMT Logo" src="/assets/images/ufmt-logo.png">
+          <span class="story-name">AAAEXI</span>
         </div>
       </div>
     </div>
+
+    <!-- Live Matches Feed -->
+    <div class="live-matches-feed">
+      <div class="feed-header">
+        <h2>
+          <i class="fa fa-circle live-indicator"></i>
+          Partidas Ao Vivo
+        </h2>
+        <span class="live-count">3 jogos</span>
+      </div>
+
+      <!-- Match 1 -->
+      <article class="match-card">
+        <div class="match-header">
+          <div class="sport-badge futsal">
+            <i class="fa fa-futbol"></i>
+            <span>Futsal</span>
+          </div>
+          <div class="live-time">
+            <span class="live-badge">LIVE</span>
+            <span class="time">42'</span>
+          </div>
+        </div>
+
+        <div class="match-info">
+          <div class="championship">INTERMED 2024</div>
+          <div class="venue">Ginásio UNIVAG</div>
+        </div>
+
+        <div class="match-teams">
+          <div class="team home">
+            <img alt="ISQUEMIA" class="team-logo" src="/assets/images/athletics/athletic-icon.png">
+            <span class="team-name">ISQUEMIA</span>
+          </div>
+
+          <div class="score">
+            <span class="home-score">2</span>
+            <span class="separator">×</span>
+            <span class="away-score">1</span>
+          </div>
+
+          <div class="team away">
+            <img alt="AAEUF" class="team-logo" src="/assets/images/athletics/athletic-icon.png">
+            <span class="team-name">AAEUF</span>
+          </div>
+        </div>
+
+        <div class="match-actions">
+          <button class="watch-btn">
+            <i class="fa fa-eye"></i>
+            Ver
+          </button>
+        </div>
+      </article>
+
+      <!-- Match 2 -->
+      <article class="match-card">
+        <div class="match-header">
+          <div class="sport-badge basketball">
+            <i class="fa fa-basketball"></i>
+            <span>Basquete</span>
+          </div>
+          <div class="live-time">
+            <span class="live-badge">LIVE</span>
+            <span class="time">3º Q</span>
+          </div>
+        </div>
+
+        <div class="match-info">
+          <div class="championship">INTERMED 2024</div>
+          <div class="venue">Quadra UNIC</div>
+        </div>
+
+        <div class="match-teams">
+          <div class="team home">
+            <img alt="AAAEXI" class="team-logo" src="/assets/images/athletics/athletic-icon.png">
+            <span class="team-name">AAAEXI</span>
+          </div>
+
+          <div class="score">
+            <span class="home-score">67</span>
+            <span class="separator">×</span>
+            <span class="away-score">59</span>
+          </div>
+
+          <div class="team away">
+            <img alt="UNIDERP" class="team-logo" src="/assets/images/athletics/athletic-icon.png">
+            <span class="team-name">UNIDERP</span>
+          </div>
+        </div>
+
+        <div class="match-actions">
+          <button class="watch-btn">
+            <i class="fa fa-eye"></i>
+            Ver
+          </button>
+        </div>
+      </article>
+
+      <!-- Match 3 -->
+      <article class="match-card">
+        <div class="match-header">
+          <div class="sport-badge volleyball">
+            <i class="fa fa-volleyball"></i>
+            <span>Vôlei</span>
+          </div>
+          <div class="live-time">
+            <span class="live-badge">LIVE</span>
+            <span class="time">2º Set</span>
+          </div>
+        </div>
+
+        <div class="match-info">
+          <div class="championship">INTERMED 2024</div>
+          <div class="venue">Arena UCDB</div>
+        </div>
+
+        <div class="match-teams">
+          <div class="team home">
+            <img alt="UCDB" class="team-logo" src="/assets/images/athletics/athletic-icon.png">
+            <span class="team-name">UCDB</span>
+          </div>
+
+          <div class="score">
+            <span class="home-score">1</span>
+            <span class="separator">×</span>
+            <span class="away-score">0</span>
+          </div>
+
+          <div class="team away">
+            <img alt="UNIVAG" class="team-logo" src="/assets/images/athletics/athletic-icon.png">
+            <span class="team-name">UNIVAG</span>
+          </div>
+        </div>
+
+        <div class="match-actions">
+          <button class="watch-btn">
+            <i class="fa fa-eye"></i>
+            Ver
+          </button>
+        </div>
+      </article>
+
+      <!-- Match 4 -->
+      <article class="match-card">
+        <div class="match-header">
+          <div class="sport-badge handball">
+            <i class="fa fa-handshake"></i>
+            <span>Handebol</span>
+          </div>
+          <div class="live-time">
+            <span class="live-badge">LIVE</span>
+            <span class="time">1º T</span>
+          </div>
+        </div>
+
+        <div class="match-info">
+          <div class="championship">INTERMED 2024</div>
+          <div class="venue">Ginásio Municipal</div>
+        </div>
+
+        <div class="match-teams">
+          <div class="team home">
+            <img alt="UNIGRAN" class="team-logo" src="/assets/images/athletics/athletic-icon.png">
+            <span class="team-name">UNIGRAN</span>
+          </div>
+
+          <div class="score">
+            <span class="home-score">12</span>
+            <span class="separator">×</span>
+            <span class="away-score">8</span>
+          </div>
+
+          <div class="team away">
+            <img alt="ANHANGUERA" class="team-logo" src="/assets/images/athletics/athletic-icon.png">
+            <span class="team-name">ANHANGUERA</span>
+          </div>
+        </div>
+
+        <div class="match-actions">
+          <button class="watch-btn">
+            <i class="fa fa-eye"></i>
+            Ver
+          </button>
+        </div>
+      </article>
+
+      <div class="view-more">
+        <button class="view-more-btn">
+          <i class="fa fa-plus"></i>
+          Ver mais partidas
+        </button>
+      </div>
+    </div>
+
+    <!-- Sugestões Compactas -->
+    <div class="suggestions-section">
+      <div class="section-header">
+        <h3>Sugestões para você</h3>
+        <button class="see-all-btn">Ver tudo</button>
+      </div>
+
+      <div class="suggestions-list">
+        <div class="suggestion-item">
+          <img alt="John Doe" class="suggestion-avatar" src="/assets/images/avatars/avatar-1.jpg">
+          <div class="suggestion-info">
+            <span class="suggestion-name">João Silva</span>
+            <span class="suggestion-detail">Atleta • UNIC</span>
+          </div>
+          <button class="follow-btn">Seguir</button>
+        </div>
+
+        <div class="suggestion-item">
+          <img alt="Jane Smith" class="suggestion-avatar" src="/assets/images/avatars/avatar-2.jpg">
+          <div class="suggestion-info">
+            <span class="suggestion-name">Maria Santos</span>
+            <span class="suggestion-detail">Técnica • UNIVAG</span>
+          </div>
+          <button class="follow-btn">Seguir</button>
+        </div>
+
+        <div class="suggestion-item">
+          <img alt="Mike Johnson" class="suggestion-avatar" src="/assets/images/avatars/avatar-3.jpg">
+          <div class="suggestion-info">
+            <span class="suggestion-name">Carlos Lima</span>
+            <span class="suggestion-detail">Gestor • UNIDERP</span>
+          </div>
+          <button class="follow-btn">Seguir</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Patrocinadores Compactos -->
+    <div class="sponsors-section">
+      <h3>Apoiadores</h3>
+      <div class="sponsors-compact">
+        <img alt="Sicoob" src="/assets/images/sicoob-logo.png">
+        <img alt="Unimed" src="/assets/images/unimed-logo.png">
+        <img alt="Unigran" src="/assets/images/unigran-logo.png">
+        <img alt="Unic" src="/assets/images/unic-logo.png">
+      </div>
+    </div>
+
   </div>
 </aside>

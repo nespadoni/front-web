@@ -1,11 +1,10 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {Routes} from '@angular/router';
 import {Login} from './features/auth/login/login';
 import {Register} from './features/auth/register/register';
 import {TeamManagement} from './features/dashboard/team-management/team-management';
 import {Home} from './features/feed/home/home';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: 'login',
     component: Login
@@ -24,18 +23,11 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/team-management',
+    redirectTo: '/home',
     pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: '/team-management'
+    redirectTo: '/home'
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {
-}

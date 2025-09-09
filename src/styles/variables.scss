@@ -1,28 +1,46 @@
 :root {
-  // Cores
-  --primary-color: #6623F0;
-  --primary-color-light: #bb98ff;
-  --primary-color-dark: #531ac9;
-  --secondary-color: #1e252f;
-  --tertiary-color: #323c4b;
-  --text-color: #ffffff;
-  --background-color: #0F1319;
-  --background-focus-color: #13181f;
-  --border-radius: 8px;
+  // Paleta Esportiva Principal
+  --primary-color: #1a73e8; // Azul vibrante (confiança, profissionalismo)
+  --primary-color-light: #4285f4;
+  --primary-color-dark: #0d47a1;
 
-  // Tipografia
+  // Cores de Acento
+  --success-color: #00c851; // Verde (vitória, sucesso)
+  --warning-color: #ff8f00; // Laranja (energia, competição)
+  --error-color: #ff4444; // Vermelho (alerta, urgência)
+  --info-color: #33b5e5; // Azul claro (informação)
+
+  // Cores Neutras
+  --secondary-color: #1e2328;
+  --tertiary-color: #2a2f36;
+  --text-color: #ffffff;
+  --text-secondary: #a0a6b2;
+  --background-color: #0f1419;
+  --background-focus-color: #1a1f26;
+
+  // Interface
+  --sidebar-bg: #16191e;
+  --card-background: #1e2328;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --hover-bg: rgba(255, 255, 255, 0.05);
+  --input-background: #2a2f36;
+  --input-border: #3a4048;
+  --shadow: rgba(0, 0, 0, 0.25);
+
+  // Espaçamentos e Tipografia
+  --border-radius: 12px;
   --font-family: 'Poppins', sans-serif;
   --font-size-base: 14px;
   --font-size-little-small: 10px;
-  --font-size-small: 11px;
-  --font-size-medium: 15px;
-  --font-size-large: 36px;
-  --line-height: 2;
+  --font-size-small: 12px;
+  --font-size-medium: 16px;
+  --font-size-large: 32px;
+  --line-height: 1.6;
 
   // Espaçamentos
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
-  --spacing-xl: 28px;
+  --spacing-xl: 32px;
 }

@@ -1,7 +1,17 @@
-<div [class.has-sidebar]="!isAuthRoute" class="main-layout">
-  <app-sidebar *ngIf="!isAuthRoute"></app-sidebar>
-  <div [class.full-width]="isAuthRoute" class="content-wrapper">
+<!-- Layout com sidebars para rotas principais -->
+@if (showSidebars) {
+  <div class="app-layout">
+    <app-sidebar></app-sidebar>
+
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+
+    <app-socialbar></app-socialbar>
+  </div>
+} @else {
+  <!-- Layout simples para rotas de auth -->
+  <div class="auth-layout">
     <router-outlet></router-outlet>
   </div>
-  <app-socialbar *ngIf="!isAuthRoute"></app-socialbar>
-</div>
+}

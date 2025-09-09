@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-socialbar',
-  standalone: false,
+  standalone: true,
+  imports: [],
   templateUrl: './socialbar.html',
   styleUrl: './socialbar.scss'
 })

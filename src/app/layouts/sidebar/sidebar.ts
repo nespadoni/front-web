@@ -3,12 +3,12 @@ import {DOCUMENT} from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
-  standalone: false,
+  standalone: true,
+  imports: [],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss'
 })
 export class SidebarComponent implements OnInit {
-  // Propriedades do user sidebar
   isSettingsOpen: boolean = false;
   isDarkMode: boolean = true;
 
@@ -16,7 +16,6 @@ export class SidebarComponent implements OnInit {
     private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document
   ) {
-    // Carrega o tema salvo no localStorage
     const savedTheme = localStorage.getItem('theme');
     this.isDarkMode = savedTheme ? savedTheme === 'dark' : true;
     this.applyTheme();
@@ -25,7 +24,6 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // Métodos do user sidebar
   toggleSettings() {
     this.isSettingsOpen = !this.isSettingsOpen;
   }
@@ -40,7 +38,6 @@ export class SidebarComponent implements OnInit {
     this.isSettingsOpen = false;
   }
 
-  // Método para quando clicar no overlay
   onOverlayClick(event: Event) {
     if (event.target === event.currentTarget) {
       this.closeSettings();

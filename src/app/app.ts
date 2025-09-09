@@ -1,27 +1,52 @@
 import {Component, OnInit} from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
+import {NavigationEnd, Router, RouterOutlet} from '@angular/router';
 import {filter} from 'rxjs/operators';
+import {SidebarComponent} from './layouts/sidebar/sidebar';
+import {Socialbar} from './layouts/socialbar/socialbar';
 
 @Component({
   selector: 'app-root',
-  standalone: false,
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    SidebarComponent,
+    Socialbar
+  ],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrls: ['./app.scss']
 })
 export class AppComponent implements OnInit {
-  isAuthRoute = false;
+  title = 'rivaly';
+
+  public showSidebars: boolean = true;
+
+  private readonly routesWithoutSidebars: string[] = [
+    '/login',
+    '/register',
+    '/forgot-password',
+    '/terms'
+  ];
 
   constructor(private router: Router) {
   }
 
-  ngOnInit() {
-    // Escuta mudanças de rota
+  ngOnInit(): void {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
-        // Lista das páginas que NÃO devem ter sidebar
-        const authRoutes = ['/login', '/register'];
-        this.isAuthRoute = authRoutes.some(route => event.urlAfterRedirects.includes(route));
+        this.checkRoute(event.url);
       });
+
+    this.checkRoute(this.router.url);
+  }
+
+  private checkRoute(url: string): void {
+    const cleanUrl = url.split('?')[0].split('#')[0];
+    this.showSidebars = !this.routesWithoutSidebars.some(route =>
+      cleanUrl === route || cleanUrl.startsWith(route + '/')
+    );
+
+    console.log('Rota atual:', cleanUrl);
+    console.log('Mostrar sidebars:', this.showSidebars);
   }
 }

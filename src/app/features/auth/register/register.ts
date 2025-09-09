@@ -1,6 +1,14 @@
+import {CommonModule} from '@angular/common';
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators
+} from '@angular/forms';
+import {Router, RouterLink} from '@angular/router';
 
 // Interface para tipagem dos dados de registro do usuário
 interface UserRegistrationData {
@@ -25,7 +33,12 @@ type ErrorMessageKey =
 
 @Component({
   selector: 'app-register',
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterLink
+  ],
   templateUrl: './register.html',
   styleUrl: './register.scss'
 })

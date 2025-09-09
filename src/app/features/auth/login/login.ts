@@ -1,10 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterLink
+  ],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
@@ -38,11 +44,15 @@ export class Login implements OnInit {
   signInWithGoogle(): void {
     if (this.isLoading) return;
     console.log('Google Sign In');
+    // Redireciona para home após login social
+    this.redirectToHome();
   }
 
   signInWithApple(): void {
     if (this.isLoading) return;
     console.log('Apple Sign In');
+    // Redireciona para home após login social
+    this.redirectToHome();
   }
 
   isFieldInvalid(fieldName: string): boolean {
@@ -88,10 +98,18 @@ export class Login implements OnInit {
 
     console.log('Login:', formData);
 
+    // Simula API call e redireciona para home
     setTimeout(() => {
       this.isLoading = false;
-      // this.router.navigate(['/dashboard']);
+      console.log('Login realizado com sucesso! Redirecionando para home...');
+      this.redirectToHome();
     }, 2000);
+  }
+
+  private redirectToHome(): void {
+    this.router.navigate(['/home']).then(() => {
+      console.log('Redirecionado para home com sucesso!');
+    });
   }
 
   private markAllFieldsAsTouched(): void {
