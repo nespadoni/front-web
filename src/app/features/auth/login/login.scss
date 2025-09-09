@@ -1,11 +1,24 @@
 .login-page {
+  min-height: 100vh; // ✅ Altura mínima da viewport
+  width: 100vw; // ✅ Largura total da viewport
   display: flex;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background: url("/assets/images/backgrounds/background-preview.svg") no-repeat center;
-  background-size: cover;
-  animation: fadeInBackground 1.2s ease-out;
+  justify-content: center;
+  padding: 0; // ✅ Remover padding
+  margin: 0; // ✅ Remover margin
+  position: relative;
+  overflow: hidden;
+
+  // ✅ Garantir que não tenha espaços em branco
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+  }
 }
 
 .login-container {
