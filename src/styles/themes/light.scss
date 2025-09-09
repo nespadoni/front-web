@@ -1,13 +1,25 @@
-[data-theme="light"] {
-  --primary-color: #6D54B5;
-  --background-color: #ffffff;
-  --text-color: #2c3e50;
-  --text-secondary: #6c757d;
+body[data-theme="light"] {
+  // Paleta Clara Esportiva
+  --primary-color: #1565c0;
+  --primary-color-dark: #0d47a1;
+  --primary-color-light: #1976d2;
 
-  // Cores específicas do tema claro
-  --card-background: #f8f9fa;
-  --border-color: #dee2e6;
-  --input-background: #ffffff;
-  --input-border: #ced4da;
+  --success-color: #2e7d32;
+  --warning-color: #ef6c00;
+  --error-color: #d32f2f;
+  --info-color: #0288d1;
+
+  --secondary-color: #f5f7fa;
+  --secondary-color-darker: #e1e5e9;
+  --background-color: #ffffff;
+  --text-color: #1a202c;
+  --text-secondary: #4a5568;
+
+  --sidebar-bg: #ffffff;
+  --card-background: #ffffff;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --hover-bg: rgba(0, 0, 0, 0.04);
+  --input-background: #f7fafc;
+  --input-border: #e2e8f0;
   --shadow: rgba(0, 0, 0, 0.1);
 }

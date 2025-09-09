@@ -1,1 +1,30 @@
-<router-outlet></router-outlet>
+<!-- Layout para rotas de autenticação (sem sidebars) -->
+@if (!showSidebar) {
+  <div class="auth-layout">
+    <router-outlet></router-outlet>
+  </div>
+}
+
+<!-- Layout para /home (com sidebar + socialbar) -->
+@if (showSidebar && showSocialbar) {
+  <div class="app-layout home-layout">
+    <app-sidebar></app-sidebar>
+
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+
+    <app-socialbar></app-socialbar>
+  </div>
+}
+
+<!-- Layout para outras rotas (apenas sidebar) -->
+@if (showSidebar && !showSocialbar) {
+  <div class="app-layout standard-layout">
+    <app-sidebar></app-sidebar>
+
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+}

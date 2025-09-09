@@ -1,0 +1,107 @@
+<div class="filters-container">
+  <!-- Barra de busca e botão de filtros -->
+  <div class="filters-header">
+    <div class="search-container">
+      <i class="fas fa-search"></i>
+      <input
+        (ngModelChange)="onSearchChange()"
+        [(ngModel)]="searchTerm"
+        class="search-input"
+        placeholder="Buscar times, campeonatos..."
+        type="text">
+
+      @if (searchTerm) {
+        <button class="clear-search" (click)="searchTerm = ''; onSearchChange()">
+          <i class="fas fa-times"></i>
+        </button>
+      }
+    </div>
+
+    <button
+      (click)="toggleFilters()"
+      [class.active]="showFilters"
+      [class.has-filters]="getActiveFiltersCount() > 0"
+      class="filters-toggle">
+      <i class="fas fa-filter"></i>
+      Filtros
+      @if (getActiveFiltersCount() > 0) {
+        <span class="filters-count">{{ getActiveFiltersCount() }}</span>
+      }
+    </button>
+  </div>
+
+  <!-- Painel de filtros (expansível) -->
+  <div [class.expanded]="showFilters" class="filters-panel">
+    <div class="filters-content">
+      <!-- Status do jogo -->
+      <div class="filter-section">
+        <h4>
+          <i class="fas fa-circle"></i>
+          Status
+        </h4>
+        <div class="filter-options">
+          @for (status of statusOptions; track status.id) {
+            <label class="filter-checkbox">
+              <input
+                type="checkbox"
+                [checked]="isStatusSelected(status.id)"
+                (change)="onStatusChange(status.id, $any($event.target).checked)">
+              <span class="checkmark" [style.border-color]="status.color"></span>
+              <span class="status-indicator" [style.background-color]="status.color"></span>
+              <span class="label-text">{{ status.label }}</span>
+            </label>
+          }
+        </div>
+      </div>
+
+      <!-- Esportes -->
+      <div class="filter-section">
+        <h4>
+          <i class="fas fa-futbol"></i>
+          Esportes
+        </h4>
+        <div class="filter-options">
+          @for (sport of sports; track sport.id) {
+            <label class="filter-checkbox">
+              <input
+                type="checkbox"
+                [checked]="isSportSelected(sport.id)"
+                (change)="onSportChange(sport.id, $any($event.target).checked)">
+              <span class="checkmark" [style.border-color]="sport.color"></span>
+              <span class="sport-icon">{{ sport.id | sportIcon }}</span>
+              <span class="label-text">{{ sport.name }}</span>
+            </label>
+          }
+        </div>
+      </div>
+
+      <!-- Campeonatos -->
+      <div class="filter-section">
+        <h4>
+          <i class="fas fa-trophy"></i>
+          Campeonatos
+        </h4>
+        <div class="filter-options">
+          @for (tournament of tournaments; track tournament.id) {
+            <label class="filter-checkbox">
+              <input
+                type="checkbox"
+                [checked]="isTournamentSelected(tournament.id)"
+                (change)="onTournamentChange(tournament.id, $any($event.target).checked)">
+              <span class="checkmark"></span>
+              <span class="label-text">{{ tournament.name }}</span>
+            </label>
+          }
+        </div>
+      </div>
+
+      <!-- Ações -->
+      <div class="filters-actions">
+        <button (click)="clearAllFilters()" [disabled]="getActiveFiltersCount() === 0" class="clear-btn">
+          <i class="fas fa-times"></i>
+          Limpar Filtros
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

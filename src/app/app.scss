@@ -1,0 +1,171 @@
+// Layout principal com sidebars
+.app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+
+  // Sidebar esquerda - responsiva
+  app-sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    z-index: 100;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  // Conteúdo central - scroll invisível
+  .main-content {
+    flex: 1;
+    min-width: 0;
+    overflow-y: auto;
+    background: var(--background-color);
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    // Esconde a scrollbar mas mantém funcionalidade
+    scrollbar-width: none; // Firefox
+    -ms-overflow-style: none; // Internet Explorer 10+
+
+    &::-webkit-scrollbar {
+      display: none; // WebKit (Chrome, Safari, Edge)
+    }
+  }
+
+  // Socialbar direita - responsiva
+  app-socialbar {
+    width: 280px; // Base: 280px
+    flex-shrink: 0;
+    background: var(--sidebar-bg);
+    border-left: 1px solid var(--border-color);
+    z-index: 100;
+    height: 100vh;
+    overflow: hidden;
+    display: block !important; // Force display sempre
+  }
+}
+
+// Layout simples para autenticação
+.auth-layout {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // Garante que o conteúdo de auth ocupe toda a tela
+  router-outlet + * {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Layout para /home (3 colunas: sidebar + main + socialbar)
+.home-layout {
+  .main-content {
+    flex: 1;
+    min-width: 0; // Para flexbox truncation
+  }
+}
+
+// Layout para outras rotas (2 colunas: sidebar + main)
+.standard-layout {
+  .main-content {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+// ========= RESPONSIVIDADE POR TAMANHO DE TELA =========
+
+// Telas grandes (1920px+)
+@media (min-width: 1920px) {
+  .app-layout {
+    app-socialbar {
+      width: 320px; // Mais espaçosa para telas grandes
+    }
+
+    app-sidebar {
+      width: 280px; // Aumenta a sidebar esquerda também
+    }
+  }
+}
+
+// Telas médias-grandes (1600px-1919px)
+@media (min-width: 1600px) and (max-width: 1919px) {
+  .app-layout {
+    app-socialbar {
+      width: 300px;
+    }
+
+    app-sidebar {
+      width: 260px;
+    }
+  }
+}
+
+// Telas médias (1400px-1599px)
+@media (min-width: 1400px) and (max-width: 1599px) {
+  .app-layout {
+    app-socialbar {
+      width: 280px;
+    }
+  }
+}
+
+// Telas pequenas (1200px-1399px) - mantém socialbar
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .app-layout {
+    app-socialbar {
+      width: 260px;
+    }
+  }
+}
+
+// Telas menores (esconde socialbar apenas abaixo de 1200px)
+@media (max-width: 1199px) {
+  .app-layout {
+    app-socialbar {
+      display: none !important;
+    }
+
+    .main-content {
+      padding: var(--spacing-md);
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .app-layout {
+    app-sidebar {
+      width: 220px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+
+    app-sidebar {
+      width: 100%;
+      height: auto;
+    }
+
+    .main-content {
+      padding: var(--spacing-sm);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .app-layout {
+    .main-content {
+      padding: var(--spacing-xs);
+    }
+  }
+}
