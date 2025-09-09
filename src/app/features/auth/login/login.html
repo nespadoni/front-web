@@ -22,9 +22,11 @@
                   id="email"
                   placeholder="Email"
                   type="email">
-                <div *ngIf="isFieldInvalid('email')" class="error-tooltip">
-                  {{ getFieldError('email') }}
-                </div>
+                @if (isFieldInvalid('email')) {
+                  <div class="error-tooltip">
+                    {{ getFieldError('email') }}
+                  </div>
+                }
               </div>
             </div>
 
@@ -38,9 +40,11 @@
                   id="password"
                   placeholder="Enter your password"
                   type="password">
-                <div *ngIf="isFieldInvalid('password')" class="error-tooltip">
-                  {{ getFieldError('password') }}
-                </div>
+                @if (isFieldInvalid('password')) {
+                  <div class="error-tooltip">
+                    {{ getFieldError('password') }}
+                  </div>
+                }
               </div>
             </div>
 
