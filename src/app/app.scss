@@ -53,12 +53,30 @@
 .auth-layout {
   width: 100%;
   height: 100vh;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   // Garante que o conteúdo de auth ocupe toda a tela
   router-outlet + * {
     width: 100%;
     height: 100%;
+  }
+}
+
+// Layout para /home (3 colunas: sidebar + main + socialbar)
+.home-layout {
+  .main-content {
+    flex: 1;
+    min-width: 0; // Para flexbox truncation
+  }
+}
+
+// Layout para outras rotas (2 colunas: sidebar + main)
+.standard-layout {
+  .main-content {
+    flex: 1;
+    min-width: 0;
   }
 }
 

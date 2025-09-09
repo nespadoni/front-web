@@ -18,35 +18,72 @@ import {Socialbar} from './layouts/socialbar/socialbar';
 export class AppComponent implements OnInit {
   title = 'rivaly';
 
-  public showSidebars: boolean = true;
+  public showSidebar: boolean = true;
+  public showSocialbar: boolean = false;
 
-  private readonly routesWithoutSidebars: string[] = [
+  private readonly routesWithoutSidebar: string[] = [
     '/login',
     '/register',
     '/forgot-password',
     '/terms'
   ];
 
+  // Socialbar aparece APENAS na home
+  private readonly routesWithSocialbar: string[] = [
+    '/',
+    '/home'
+  ];
+
   constructor(private router: Router) {
+    // Debug: Log inicial
+    console.log('🔧 AppComponent constructor - URL inicial:', this.router.url);
   }
 
   ngOnInit(): void {
+    // Verificar rota inicial
+    this.checkRoute(this.router.url);
+    console.log('🔧 ngOnInit - Estado inicial:', {
+      showSidebar: this.showSidebar,
+      showSocialbar: this.showSocialbar,
+      currentUrl: this.router.url
+    });
+
+    // Escutar mudanças de rota
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
+        console.log('🔧 Navegação detectada:', event.url);
         this.checkRoute(event.url);
+        console.log('🔧 Após checkRoute:', {
+          showSidebar: this.showSidebar,
+          showSocialbar: this.showSocialbar
+        });
       });
-
-    this.checkRoute(this.router.url);
   }
 
   private checkRoute(url: string): void {
     const cleanUrl = url.split('?')[0].split('#')[0];
-    this.showSidebars = !this.routesWithoutSidebars.some(route =>
+    console.log('🔧 checkRoute chamado com URL:', cleanUrl);
+
+    // Lógica para Sidebar (todas exceto auth)
+    const shouldShowSidebar = !this.routesWithoutSidebar.some(route =>
       cleanUrl === route || cleanUrl.startsWith(route + '/')
     );
 
-    console.log('Rota atual:', cleanUrl);
-    console.log('Mostrar sidebars:', this.showSidebars);
+    // Lógica para Socialbar (APENAS /home)
+    const shouldShowSocialbar = this.routesWithSocialbar.some(route =>
+      cleanUrl === route || cleanUrl.startsWith(route + '/')
+    );
+
+    console.log('🔧 Calculados:', {shouldShowSidebar, shouldShowSocialbar});
+
+    // Atualizar estado
+    this.showSidebar = shouldShowSidebar;
+    this.showSocialbar = shouldShowSocialbar;
+
+    console.log('🔧 Estado final:', {
+      showSidebar: this.showSidebar,
+      showSocialbar: this.showSocialbar
+    });
   }
 }
