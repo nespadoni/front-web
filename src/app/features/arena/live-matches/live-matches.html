@@ -1,0 +1,139 @@
+<div class="live-matches-container">
+  <!-- Header da página -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1>
+        <i class="fas fa-play-circle"></i>
+        Partidas ao Vivo
+      </h1>
+      <p>Acompanhe todas as partidas universitárias em tempo real</p>
+    </div>
+
+    <!-- Estatísticas rápidas -->
+    <div class="quick-stats">
+      <div class="stat-item live">
+        <div class="stat-number">{{ getLiveMatchesCount() }}</div>
+        <div class="stat-label">Ao Vivo</div>
+        <div class="pulse-indicator"></div>
+      </div>
+
+      <div class="stat-item scheduled">
+        <div class="stat-number">{{ getScheduledMatchesCount() }}</div>
+        <div class="stat-label">Agendadas</div>
+      </div>
+
+      <div class="stat-item following">
+        <div class="stat-number">{{ getFollowingMatchesCount() }}</div>
+        <div class="stat-label">Seguindo</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <app-match-filters></app-match-filters>
+
+  <!-- Loading State -->
+  @if (isLoading) {
+    <div class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Carregando partidas...</p>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (hasError && !isLoading) {
+    <div class="error-state">
+      <i class="fas fa-exclamation-triangle"></i>
+      <h3>Ops! Algo deu errado</h3>
+      <p>Não foi possível carregar as partidas. Tente novamente.</p>
+      <button class="retry-btn" (click)="onRetry()">
+        <i class="fas fa-refresh"></i>
+        Tentar Novamente
+      </button>
+    </div>
+  }
+
+  <!-- Conteúdo principal -->
+  @if (!isLoading && !hasError) {
+    <div class="matches-content">
+
+      <!-- Partidas ao Vivo -->
+      @if (getLiveMatches().length > 0) {
+        <div class="matches-section live-section">
+          <div class="section-header">
+            <h2>
+              <span class="live-indicator"></span>
+              Ao Vivo Agora
+              <span class="count">{{ getLiveMatches().length }}</span>
+            </h2>
+          </div>
+
+          <div class="matches-grid">
+            @for (match of getLiveMatches(); track match.id) {
+              <app-match-card
+                [match]="match"
+                (followToggle)="onFollowMatch($event)"
+                (viewDetails)="onViewMatchDetails($event)">
+              </app-match-card>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Partidas Agendadas -->
+      @if (getScheduledMatches().length > 0) {
+        <div class="matches-section scheduled-section">
+          <div class="section-header">
+            <h2>
+              <i class="fas fa-calendar-alt"></i>
+              Próximas Partidas
+              <span class="count">{{ getScheduledMatches().length }}</span>
+            </h2>
+          </div>
+
+          <div class="matches-grid">
+            @for (match of getScheduledMatches(); track match.id) {
+              <app-match-card
+                [match]="match"
+                (followToggle)="onFollowMatch($event)"
+                (viewDetails)="onViewMatchDetails($event)">
+              </app-match-card>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Partidas Finalizadas -->
+      @if (getFinishedMatches().length > 0) {
+        <div class="matches-section finished-section">
+          <div class="section-header">
+            <h2>
+              <i class="fas fa-flag-checkered"></i>
+              Resultados Recentes
+              <span class="count">{{ getFinishedMatches().length }}</span>
+            </h2>
+          </div>
+
+          <div class="matches-grid">
+            @for (match of getFinishedMatches(); track match.id) {
+              <app-match-card
+                [match]="match"
+                (followToggle)="onFollowMatch($event)"
+                (viewDetails)="onViewMatchDetails($event)">
+              </app-match-card>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Estado vazio -->
+      @if (filteredMatches.length === 0) {
+        <div class="empty-state">
+          <i class="fas fa-search"></i>
+          <h3>Nenhuma partida encontrada</h3>
+          <p>Tente ajustar os filtros ou buscar por outros termos.</p>
+        </div>
+      }
+    </div>
+  }
+</div>

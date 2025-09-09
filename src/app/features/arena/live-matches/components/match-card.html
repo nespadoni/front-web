@@ -1,0 +1,113 @@
+<div [class.following]="match.isFollowing" [class.priority-high]="match.priority === 'high'" class="match-card">
+  <!-- Header do card -->
+  <div class="match-header">
+    <div class="tournament-info">
+      <span class="sport-icon">{{ match.sport.id | sportIcon }}</span>
+      <span class="tournament-name">{{ match.tournament.name }}</span>
+    </div>
+
+    <div [style.background-color]="getStatusColor(match.status)" class="match-status">
+      {{ getStatusText(match.status) }}
+      @if (match.status === 'live') {
+        <span class="pulse-dot"></span>
+      }
+    </div>
+  </div>
+
+  <!-- Times e placar -->
+  <div class="match-content">
+    <div class="teams-container">
+      <!-- Time da casa -->
+      <div class="team home-team">
+        <img [alt]="match.homeTeam.name" [src]="match.homeTeam.logo" class="team-logo" loading="lazy"
+             onerror="this.src='/assets/default-team.png'">
+        <div class="team-info">
+          <span class="team-name">{{ match.homeTeam.shortName }}</span>
+          <span class="university">{{ match.homeTeam.university }}</span>
+        </div>
+      </div>
+
+      <!-- Placar -->
+      <div class="score-container">
+        <div class="score">
+          <span [class.winner]="match.score.home > match.score.away && match.status === 'finished'" class="home-score">
+            {{ match.score.home }}
+          </span>
+          <span class="separator">–</span>
+          <span [class.winner]="match.score.away > match.score.home && match.status === 'finished'" class="away-score">
+            {{ match.score.away }}
+          </span>
+        </div>
+
+        @if (match.status === 'live') {
+          <div class="match-time">
+            <span class="period">{{ match.period }}</span>
+            @if (match.minute) {
+              <span class="minute">{{ match.minute }}'</span>
+            }
+          </div>
+        }
+
+        @if (match.score.sets) {
+          <div class="sets-info">
+            Sets: {{ match.score.sets.join('-') }}
+          </div>
+        }
+      </div>
+
+      <!-- Time visitante -->
+      <div class="team away-team">
+        <div class="team-info">
+          <span class="team-name">{{ match.awayTeam.shortName }}</span>
+          <span class="university">{{ match.awayTeam.university }}</span>
+        </div>
+        <img [alt]="match.awayTeam.name" [src]="match.awayTeam.logo" class="team-logo" loading="lazy"
+             onerror="this.src='/assets/default-team.png'">
+      </div>
+    </div>
+
+    <!-- Informações extras -->
+    @if (match.venue) {
+      <div class="venue-info">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>{{ match.venue }}</span>
+      </div>
+    }
+
+    <!-- Destaques recentes -->
+    @if (match.highlights.length > 0 && (match.status === 'live' || match.status === 'finished')) {
+      <div class="highlights">
+        <h4>
+          <i class="fas fa-bolt"></i>
+          Últimos eventos
+        </h4>
+        <div class="highlights-list">
+          @for (highlight of getRecentHighlights(); track highlight.id) {
+            <div class="highlight-item" [class]="'highlight-' + highlight.type">
+              <span class="highlight-icon">{{ getHighlightIcon(highlight.type) }}</span>
+              <span class="highlight-minute">{{ highlight.minute }}'</span>
+              <span class="highlight-description">{{ highlight.description }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Ações -->
+  <div class="match-actions">
+    <button
+      (click)="onFollow()"
+      [attr.aria-label]="match.isFollowing ? 'Deixar de seguir partida' : 'Seguir partida'"
+      [class.following]="match.isFollowing"
+      class="follow-btn">
+      <i [class]="match.isFollowing ? 'fas fa-heart' : 'far fa-heart'"></i>
+      {{ match.isFollowing ? 'Seguindo' : 'Seguir' }}
+    </button>
+
+    <button (click)="onViewDetails()" class="details-btn">
+      <i class="fas fa-chart-bar"></i>
+      Estatísticas
+    </button>
+  </div>
+</div>
