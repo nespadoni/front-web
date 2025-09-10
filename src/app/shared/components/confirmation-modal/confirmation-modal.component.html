@@ -1,0 +1,48 @@
+<div (click)="onOverlayClick($event)"
+     *ngIf="isOpen"
+     [@overlayAnimation]
+     class="modal-overlay">
+
+  <div [@modalAnimation]
+       [ngClass]="'modal-' + (config?.type || 'info')"
+       class="modal-container">
+
+    <div class="modal-content">
+      <!-- HEADER COM ANIMAÇÃO -->
+      <div class="modal-header">
+        <h3 class="modal-title">{{ config?.title }}</h3>
+        <button (click)="onCancel()"
+                [@closeIconAnimation]
+                aria-label="Fechar modal"
+                class="modal-close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- BODY COM ANIMAÇÃO -->
+      <div class="modal-body">
+        <p class="modal-message">{{ config?.message }}</p>
+      </div>
+
+      <!-- FOOTER COM BOTÕES ANIMADOS -->
+      <div class="modal-footer">
+        <button (click)="onCancel()"
+                (mouseenter)="onCancelHover(true)"
+                (mouseleave)="onCancelHover(false)"
+                [@buttonHover]="cancelButtonState"
+                class="btn btn-secondary">
+          {{ config?.cancelText || 'Cancelar' }}
+        </button>
+
+        <button (click)="onConfirm()"
+                (mouseenter)="onConfirmHover(true)"
+                (mouseleave)="onConfirmHover(false)"
+                [@buttonHover]="confirmButtonState"
+                [ngClass]="'btn-' + (config?.type || 'info')"
+                class="btn btn-primary">
+          {{ config?.confirmText || 'Confirmar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

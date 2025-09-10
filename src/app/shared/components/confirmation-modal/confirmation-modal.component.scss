@@ -1,0 +1,243 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75); // 👈 MAIS ESCURO E OPACO
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-container {
+  background: var(--background-color); // 👈 FUNDO SÓLIDO COM VARIÁVEL DO TEMA
+  border-radius: 16px;
+  min-width: 420px;
+  max-width: 500px;
+  // 👈 SOMBRA SÓLIDA SEM TRANSPARÊNCIAS
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4),
+  0 0 0 1px var(--border-color);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  perspective: 1000px;
+}
+
+.modal-content {
+  // Container para animações stagger
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--border-color);
+  // 👈 FUNDO SÓLIDO SEM TRANSPARÊNCIAS
+  background: var(--bg-primary);
+
+  .modal-title {
+    margin: 0;
+    color: var(--text-primary); // 👈 COR CONSISTENTE COM TEMA
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  .modal-close {
+    // 👈 BOTÃO SÓLIDO SEM BLUR/TRANSPARÊNCIAS
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 8px;
+    border-radius: 8px; // 👈 MENOS ARREDONDADO
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: var(--bg-hover);
+      border-color: var(--text-primary);
+      color: var(--text-primary);
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.modal-body {
+  padding: 28px;
+  // 👈 FUNDO SÓLIDO
+  background: var(--bg-primary);
+
+  .modal-message {
+    margin: 0;
+    color: var(--text-secondary); // 👈 COR CONSISTENTE
+    line-height: 1.7;
+    font-size: 1.05rem;
+    font-weight: 400;
+  }
+}
+
+.modal-footer {
+  padding: 24px 28px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  // 👈 FUNDO SÓLIDO COM VARIÁVEL DO TEMA
+  background: var(--bg-primary);
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  min-width: 110px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+
+  // Efeito ripple mais sutil
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: width 0.4s ease, height 0.4s ease;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  &:active::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  // 👈 BOTÃO CANCELAR - USANDO VARIÁVEIS DO TEMA
+  &.btn-secondary {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      background: var(--bg-hover);
+      border-color: var(--text-primary);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      transform: translateY(-1px);
+    }
+  }
+
+  // 👈 BOTÃO CONFIRMAR AZUL - USANDO PRIMARY COLOR
+  &.btn-primary, &.btn-info {
+    background: var(--primary-color);
+    color: white;
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+
+    &:hover {
+      background: var(--primary-hover);
+      border-color: var(--primary-hover);
+      box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+      transform: translateY(-1px);
+    }
+  }
+
+  // 👈 BOTÃO WARNING - COR LARANJA CONSISTENTE
+  &.btn-warning {
+    background: #ff8c00; // Laranja mais sóbrio
+    color: white;
+    border: 1px solid #ff8c00;
+    box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
+
+    &:hover {
+      background: #ff7700;
+      border-color: #ff7700;
+      box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
+      transform: translateY(-1px);
+    }
+  }
+
+  // 👈 BOTÃO DANGER - VERMELHO CONSISTENTE
+  &.btn-danger {
+    background: #dc3545;
+    color: white;
+    border: 1px solid #dc3545;
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+
+    &:hover {
+      background: #c82333;
+      border-color: #c82333;
+      box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// 👈 VARIAÇÕES DO MODAL - CORES MAIS SÓBRIAS
+.modal-warning {
+  .modal-title {
+    color: #ff8c00; // 👈 LARANJA MAIS SÓBRIO
+  }
+
+  .modal-header {
+    border-left: 4px solid #ff8c00;
+  }
+}
+
+.modal-danger {
+  .modal-title {
+    color: #dc3545; // 👈 VERMELHO PADRÃO
+  }
+
+  .modal-header {
+    border-left: 4px solid #dc3545;
+  }
+}
+
+.modal-info {
+  .modal-title {
+    color: var(--primary-color); // 👈 AZUL DO TEMA
+  }
+
+  .modal-header {
+    border-left: 4px solid var(--primary-color);
+  }
+}
+
+// 👈 RESPONSIVIDADE
+@media (max-width: 480px) {
+  .modal-container {
+    min-width: 320px;
+    max-width: 90vw;
+    margin: 20px;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 20px;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+    gap: 12px;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
