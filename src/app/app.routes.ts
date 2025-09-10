@@ -3,12 +3,12 @@ import {Login} from './features/auth/login/login';
 import {Register} from './features/auth/register/register';
 import {TeamManagement} from './features/dashboard/team-management/team-management';
 import {Home} from './features/feed/home/home';
-import {LiveMatchesComponent} from './features/arena/live-matches/live-matches';
-import {HighlightsComponent} from './features/arena/highlights/highlights';
-import {LeaderboardsComponent} from './features/arena/leaderboards/leaderboards';
+import {LiveMatchesComponent} from './pages/arena/live-matches/live-matches';
 import {TournamentsComponent} from './pages/competitions/tournaments/tournaments';
 import {MatchesComponent} from './pages/competitions/matches/matches';
 import {CalendarComponent} from './pages/competitions/calendar/calendar';
+import {HighlightsComponent} from './pages/arena/highlights/highlights';
+import {LeaderboardsComponent} from './pages/arena/leaderboards/leaderboards';
 
 export const routes: Routes = [
   {
