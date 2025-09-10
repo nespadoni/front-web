@@ -1,0 +1,47 @@
+<section class="hero-banner">
+  <div class="banner-image"></div>
+  <div class="banner-content">
+    <div class="hero-badge">
+      <i class="fas fa-calendar-star"></i>
+      <span>CALENDÁRIO ESPORTIVO</span>
+    </div>
+
+    <h1 class="hero-title">
+      Nunca Perca um Jogo!
+    </h1>
+
+    <p class="hero-subtitle">
+      Acompanhe todos os jogos, campeonatos e eventos esportivos da sua universidade em tempo real
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-number">{{ stats.totalMatchesThisMonth }}</span>
+        <span class="stat-label">Jogos Este Mês</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">{{ stats.todayMatches }}</span>
+        <span class="stat-label">Jogos Hoje</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">{{ stats.upcomingMatches }}</span>
+        <span class="stat-label">Próximos 7 Dias</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">{{ stats.activeTournaments }}</span>
+        <span class="stat-label">Torneios Ativos</span>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <button (click)="onGoToToday()" class="hero-btn primary">
+        <i class="fas fa-calendar-check"></i>
+        Ver Hoje
+      </button>
+      <button class="hero-btn secondary">
+        <i class="fas fa-bell"></i>
+        Notificações
+      </button>
+    </div>
+  </div>
+</section>
