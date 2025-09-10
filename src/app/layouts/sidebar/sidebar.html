@@ -10,7 +10,6 @@
           </a>
         </div>
       </div>
-      <!-- Botão de toggle removido completamente -->
     </div>
 
     <div class="sidebar-content">
@@ -264,6 +263,7 @@
           </div>
 
           <div class="settings-body">
+            <!-- CONFIGURAÇÃO DE TEMA -->
             <div class="setting-item">
               <div class="setting-info">
                 <span class="setting-title">Tema</span>
@@ -279,6 +279,22 @@
                 </div>
               </div>
             </div>
+
+            <!-- DIVISOR -->
+            <div class="setting-divider"></div>
+
+            <!-- BOTÃO DE LOGOUT -->
+            <div class="setting-item">
+              <button (click)="onLogout()" class="logout-setting-btn" type="button">
+                <div class="logout-content">
+                  <i class="fas fa-sign-out-alt"></i>
+                  <div class="logout-text">
+                    <span class="logout-title">Sair da Conta</span>
+                  </div>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -292,3 +308,5 @@
     </div>
   </div>
 </aside>
+
+<app-confirmation-modal></app-confirmation-modal>
