@@ -12,7 +12,47 @@ export class CalendarService {
   private currentMonthSubject = new BehaviorSubject<Date>(new Date());
   public currentMonth$ = this.currentMonthSubject.asObservable();
 
-  // Mock data - com datas atuais
+  // Universidades disponíveis com suas imagens reais
+  private availableTeams = [
+    {
+      name: 'PUC-Rio',
+      shortName: 'PUC',
+      logo: 'assets/images/teams/puc.png',
+      colors: {primary: '#1a365d', secondary: '#ffd700'}
+    },
+    {
+      name: 'UERJ',
+      shortName: 'UERJ',
+      logo: 'assets/images/teams/uerj.jpg',
+      colors: {primary: '#dc2626', secondary: '#ffffff'}
+    },
+    {
+      name: 'UFF',
+      shortName: 'UFF',
+      logo: 'assets/images/teams/uff.png',
+      colors: {primary: '#059669', secondary: '#ffffff'}
+    },
+    {
+      name: 'UFRJ',
+      shortName: 'UFRJ',
+      logo: 'assets/images/teams/ufrj.png',
+      colors: {primary: '#0066cc', secondary: '#ffffff'}
+    },
+    {
+      name: 'UNIRIO',
+      shortName: 'UNI',
+      logo: 'assets/images/teams/unirio.png',
+      colors: {primary: '#7c3aed', secondary: '#ffffff'}
+    },
+    {
+      name: 'USP',
+      shortName: 'USP',
+      logo: 'assets/images/teams/usp.png',
+      colors: {primary: '#1e40af', secondary: '#fbbf24'}
+    }
+  ];
+
+  // Mock data - com datas atuais e imagens reais
   private mockMatches: CalendarMatch[] = [
     {
       id: 1,
@@ -24,19 +64,19 @@ export class CalendarService {
       time: '15:30',
       homeTeam: {
         id: 1,
-        name: 'Atlética Medicina USP',
-        shortName: 'MED',
-        logo: 'assets/teams/medicina-usp.png',
+        name: 'Atlética USP',
+        shortName: 'USP',
+        logo: 'assets/images/teams/usp.png',
         university: 'USP',
-        colors: {primary: '#0066cc', secondary: '#ffffff'}
+        colors: {primary: '#1e40af', secondary: '#fbbf24'}
       },
       awayTeam: {
         id: 2,
-        name: 'Atlética Engenharia UNICAMP',
-        shortName: 'ENG',
-        logo: 'assets/teams/engenharia-unicamp.png',
-        university: 'UNICAMP',
-        colors: {primary: '#cc0000', secondary: '#ffffff'}
+        name: 'Atlética UFRJ',
+        shortName: 'UFRJ',
+        logo: 'assets/images/teams/ufrj.png',
+        university: 'UFRJ',
+        colors: {primary: '#0066cc', secondary: '#ffffff'}
       },
       venue: 'Estádio Universitário São Paulo',
       status: 'scheduled',
@@ -56,26 +96,55 @@ export class CalendarService {
       time: '19:00',
       homeTeam: {
         id: 3,
-        name: 'PUC-SP Tigers',
+        name: 'PUC-Rio Tigers',
         shortName: 'PUC',
-        logo: 'assets/teams/puc-sp.png',
-        university: 'PUC-SP',
+        logo: 'assets/images/teams/puc.png',
+        university: 'PUC-Rio',
         colors: {primary: '#1a365d', secondary: '#ffd700'}
       },
       awayTeam: {
         id: 4,
-        name: 'Mackenzie Wolves',
-        shortName: 'MAC',
-        logo: 'assets/teams/mackenzie.png',
-        university: 'Mackenzie',
-        colors: {primary: '#8b0000', secondary: '#ffffff'}
+        name: 'UERJ Lions',
+        shortName: 'UERJ',
+        logo: 'assets/images/teams/uerj.jpg',
+        university: 'UERJ',
+        colors: {primary: '#dc2626', secondary: '#ffffff'}
       },
-      venue: 'Ginásio Central PUC-SP',
+      venue: 'Ginásio Central PUC-Rio',
       status: 'scheduled',
       priority: 'high',
       attendance: 0,
       maxAttendance: 2500,
-      description: 'Clássico paulista entre duas potências universitárias'
+      description: 'Clássico carioca entre duas potências universitárias'
+    },
+    {
+      id: 3,
+      tournament: 'Campeonato Estadual de Vôlei',
+      sport: 'Vôlei',
+      sportIcon: 'fas fa-volleyball-ball',
+      sportColor: '#a855f7',
+      date: new Date('2025-09-16T18:00:00'),
+      time: '18:00',
+      homeTeam: {
+        id: 5,
+        name: 'UFF Sharks',
+        shortName: 'UFF',
+        logo: 'assets/images/teams/uff.png',
+        university: 'UFF',
+        colors: {primary: '#059669', secondary: '#ffffff'}
+      },
+      awayTeam: {
+        id: 6,
+        name: 'UNIRIO Eagles',
+        shortName: 'UNI',
+        logo: 'assets/images/teams/unirio.png',
+        university: 'UNIRIO',
+        colors: {primary: '#7c3aed', secondary: '#ffffff'}
+      },
+      venue: 'Ginásio de Esportes UFF',
+      status: 'scheduled',
+      priority: 'medium',
+      description: 'Duelo entre vizinhos de Niterói'
     }
   ];
 
@@ -150,7 +219,7 @@ export class CalendarService {
       todayMatches: todayMatches.length,
       upcomingMatches: upcomingMatches.length,
       activeTournaments: tournaments.size,
-      followedTeams: 12 // Mock value
+      followedTeams: this.availableTeams.length
     };
   }
 
@@ -188,21 +257,20 @@ export class CalendarService {
       {name: 'Vôlei', icon: 'fas fa-volleyball-ball', color: '#a855f7'},
       {name: 'Handebol', icon: 'fas fa-hand-fist', color: '#ef4444'},
       {name: 'Futsal', icon: 'fas fa-futbol', color: '#06b6d4'},
-      {name: 'Atletismo', icon: 'fas fa-running', color: '#84cc16'}
-    ];
-
-    const teams = [
-      'UNIC', 'UNIVAG', 'UFMT', 'IFMT', 'ANHANGUERA', 'UNIGRAN',
-      'CATÓLICA', 'FAAP', 'FAINOR', 'UNIFAS'
+      {name: 'Atletismo', icon: 'fas fa-running', color: '#84cc16'},
+      {name: 'Natação', icon: 'fas fa-swimmer', color: '#0891b2'},
+      {name: 'Tênis', icon: 'fas fa-table-tennis-paddle-ball', color: '#65a30d'}
     ];
 
     const venues = [
       'Arena Universitária Central', 'Ginásio Poliesportivo', 'Campo de Futebol Principal',
-      'Quadra Coberta', 'Centro Esportivo', 'Complexo Aquático'
+      'Quadra Coberta', 'Centro Esportivo', 'Complexo Aquático',
+      'Estádio João Havelange', 'Ginásio do Maracanãzinho', 'Arena Carioca',
+      'Centro de Educação Física', 'Quadra Externa', 'Piscina Olímpica'
     ];
 
     // Gerar jogos para os próximos 30 dias
-    for (let i = 3; i <= 30; i++) {
+    for (let i = 4; i <= 50; i++) {
       const randomDayOffset = Math.floor(Math.random() * 30);
       const randomHour = Math.floor(Math.random() * 12) + 8; // 8h às 20h
       const randomMinute = Math.random() < 0.5 ? 0 : 30;
@@ -212,15 +280,28 @@ export class CalendarService {
       matchDate.setHours(randomHour, randomMinute, 0, 0);
 
       const sport = sports[Math.floor(Math.random() * sports.length)];
-      const homeTeamName = teams[Math.floor(Math.random() * teams.length)];
-      let awayTeamName = teams[Math.floor(Math.random() * teams.length)];
-      while (awayTeamName === homeTeamName) {
-        awayTeamName = teams[Math.floor(Math.random() * teams.length)];
+
+      // Selecionar times aleatórios das universidades disponíveis
+      const homeTeam = this.availableTeams[Math.floor(Math.random() * this.availableTeams.length)];
+      let awayTeam = this.availableTeams[Math.floor(Math.random() * this.availableTeams.length)];
+
+      // Garantir que não seja o mesmo time
+      while (awayTeam.name === homeTeam.name) {
+        awayTeam = this.availableTeams[Math.floor(Math.random() * this.availableTeams.length)];
       }
+
+      // Nomes de modalidades esportivas variadas
+      const modalityNames = [
+        'Masculino', 'Feminino', 'Misto', 'Sub-21', 'Principal',
+        'A', 'B', 'Veteranos', 'Iniciantes', 'Avançado'
+      ];
+
+      const homeModalityName = modalityNames[Math.floor(Math.random() * modalityNames.length)];
+      const awayModalityName = modalityNames[Math.floor(Math.random() * modalityNames.length)];
 
       this.mockMatches.push({
         id: i,
-        tournament: `${sport.name} Universitário 2025`,
+        tournament: `${sport.name} Universitário RJ 2025`,
         sport: sport.name,
         sportIcon: sport.icon,
         sportColor: sport.color,
@@ -228,23 +309,26 @@ export class CalendarService {
         time: `${randomHour.toString().padStart(2, '0')}:${randomMinute.toString().padStart(2, '0')}`,
         homeTeam: {
           id: i * 2,
-          name: `Atlética ${homeTeamName}`,
-          shortName: homeTeamName.substring(0, 3),
-          logo: `assets/teams/${homeTeamName.toLowerCase()}.png`,
-          university: homeTeamName,
-          colors: {primary: '#0066cc', secondary: '#ffffff'}
+          name: `${homeTeam.name} ${homeModalityName}`,
+          shortName: homeTeam.shortName,
+          logo: homeTeam.logo,
+          university: homeTeam.name,
+          colors: homeTeam.colors
         },
         awayTeam: {
           id: i * 2 + 1,
-          name: `Atlética ${awayTeamName}`,
-          shortName: awayTeamName.substring(0, 3),
-          logo: `assets/teams/${awayTeamName.toLowerCase()}.png`,
-          university: awayTeamName,
-          colors: {primary: '#cc0000', secondary: '#ffffff'}
+          name: `${awayTeam.name} ${awayModalityName}`,
+          shortName: awayTeam.shortName,
+          logo: awayTeam.logo,
+          university: awayTeam.name,
+          colors: awayTeam.colors
         },
         venue: venues[Math.floor(Math.random() * venues.length)],
-        status: 'scheduled',
-        priority: ['high', 'medium', 'low'][Math.floor(Math.random() * 3)] as 'high' | 'medium' | 'low'
+        status: Math.random() > 0.8 ? 'live' : 'scheduled',
+        priority: ['high', 'medium', 'low'][Math.floor(Math.random() * 3)] as 'high' | 'medium' | 'low',
+        attendance: Math.random() > 0.5 ? Math.floor(Math.random() * 1000) : undefined,
+        maxAttendance: Math.floor(Math.random() * 3000) + 500,
+        description: `Confronto entre ${homeTeam.name} e ${awayTeam.name} no ${sport.name}`
       });
     }
   }

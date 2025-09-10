@@ -22,7 +22,7 @@
       (matchClick)="onMatchClick($event)"
       *ngFor="let match of selectedDayMatches; trackBy: trackByMatchId"
       [match]="match"
-      [variant]="'compact'"
+      [variant]="'sidebar'"
       class="sidebar-match-card">
     </app-match-card>
   </div>
@@ -54,6 +54,10 @@
       <li>
         <i class="fas fa-bell"></i>
         Configure notificações para seus jogos favoritos
+      </li>
+      <li>
+        <i class="fas fa-star" style="color: var(--warning-color);"></i>
+        A estrela dourada indica jogos de alta prioridade
       </li>
     </ul>
   </div>

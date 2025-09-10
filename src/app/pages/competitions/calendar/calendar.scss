@@ -5,6 +5,8 @@
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  padding: 20px; // ✅ Padding para evitar corte
+  box-sizing: border-box;
 }
 
 .main-content {
@@ -15,14 +17,18 @@
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
+  box-sizing: border-box; // ✅ Incluir padding no cálculo
 }
 
 .calendar-section {
   min-width: 0; // Previne overflow
+  width: 100%; // ✅ Garantir largura total
 }
 
 .sidebar-section {
   min-width: 0; // Previne overflow
+  width: 350px; // ✅ Largura fixa
+  flex-shrink: 0; // ✅ Não encolher
 }
 
 // ===== POPUP MODAL =====
@@ -166,16 +172,37 @@
 }
 
 // ===== RESPONSIVIDADE =====
-@media (max-width: 1200px) {
+@media (max-width: 1440px) {
+  .calendar-container {
+    padding: 16px; // ✅ Menos padding em telas menores
+  }
+
   .main-content {
-    grid-template-columns: 1fr;
     gap: 24px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
+  .calendar-container {
+    padding: 16px;
+  }
+
   .main-content {
-    padding: 20px 16px;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .sidebar-section {
+    width: 100%; // ✅ Largura total quando empilhado
+  }
+}
+
+@media (max-width: 768px) {
+  .calendar-container {
+    padding: 12px; // ✅ Padding mínimo no mobile
+  }
+
+  .main-content {
     gap: 20px;
   }
 
@@ -217,6 +244,10 @@
 }
 
 @media (max-width: 480px) {
+  .calendar-container {
+    padding: 8px; // ✅ Padding super mínimo
+  }
+
   .popup-overlay .popup-content {
     .popup-header {
       padding: 16px 20px;
