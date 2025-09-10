@@ -1,0 +1,213 @@
+.filters-section {
+  padding: 24px 32px;
+  background: var(--card-background);
+  border-radius: 16px;
+  position: relative;
+  z-index: 10;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 8px 25px var(--shadow);
+  max-width: 1336px;
+  margin: 32px auto;
+
+  .filters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    .header-info {
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--text-color);
+        margin-bottom: 6px;
+
+        i {
+          color: var(--primary-color);
+          font-size: 24px;
+        }
+      }
+
+      .subtitle {
+        color: var(--text-secondary);
+        font-size: 14px;
+        font-weight: 500;
+        margin: 0;
+      }
+    }
+
+    .results-count {
+      background: linear-gradient(135deg, var(--primary-color), #667eea);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+      white-space: nowrap;
+    }
+  }
+
+  .filters-controls {
+    display: flex;
+    gap: 20px;
+    align-items: end;
+    flex-wrap: wrap;
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+      min-width: 220px; // Aumentado para acomodar textos longos
+
+      label {
+        color: var(--text-secondary);
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .filter-select {
+        background: var(--input-background);
+        border: 2px solid var(--input-border);
+        border-radius: 8px;
+        color: var(--text-color);
+        padding: 12px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        // Garantir que o select se expanda adequadamente
+        option {
+          padding: 8px;
+          background: var(--card-background);
+          color: var(--text-color);
+        }
+
+        &:focus {
+          outline: none;
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+        }
+
+        &:hover {
+          border-color: var(--primary-color);
+        }
+      }
+    }
+
+    .filter-clear {
+      background: var(--error-color);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      flex-shrink: 0; // Não permite encolher
+
+      &:hover {
+        background: #dc2626;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+      }
+
+      i {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+// Responsividade
+@media (max-width: 1200px) {
+  .filters-section {
+    .filters-controls {
+      .filter-group {
+        min-width: 200px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .filters-section {
+    margin: -40px 20px 30px 20px;
+
+    .filters-controls {
+      flex-direction: column;
+      gap: 16px;
+
+      .filter-group {
+        min-width: 100%;
+        flex: none;
+      }
+    }
+
+    .filters-header {
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .filters-section {
+    margin: -30px 16px 24px 16px;
+    padding: 20px;
+
+    .filters-header {
+      .header-info h2 {
+        font-size: 24px;
+      }
+
+      .header-info .subtitle {
+        font-size: 13px;
+      }
+
+      .results-count {
+        font-size: 12px;
+        padding: 8px 16px;
+      }
+    }
+
+    .filters-controls {
+      .filter-group {
+        label {
+          font-size: 11px;
+        }
+
+        .filter-select {
+          font-size: 13px;
+          padding: 10px 14px;
+        }
+      }
+
+      .filter-clear {
+        font-size: 13px;
+        padding: 10px 16px;
+      }
+    }
+  }
+}

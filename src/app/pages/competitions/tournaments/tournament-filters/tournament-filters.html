@@ -1,0 +1,61 @@
+<div class="filters-section">
+  <div class="filters-header">
+    <div class="header-info">
+      <h2>
+        <i class="fas fa-trophy"></i>
+        Torneios Disponíveis
+      </h2>
+      <p class="subtitle">Filtre e encontre o torneio perfeito para você</p>
+    </div>
+
+    <div class="results-count">
+      <span>{{ totalResults }} torneios encontrados</span>
+    </div>
+  </div>
+
+  <div class="filters-controls">
+    <div class="filter-group">
+      <label for="sport">Esporte</label>
+      <select
+        (change)="onSportChange(+$any($event.target).value)"
+        [value]="selectedSport"
+        class="filter-select"
+        id="sport">
+        <option *ngFor="let sport of sports" [value]="sport.id">
+          {{ sport.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="university">Universidade</label>
+      <select
+        (change)="onUniversityChange(+$any($event.target).value)"
+        [value]="selectedUniversity"
+        class="filter-select"
+        id="university">
+        <option *ngFor="let university of universities" [value]="university.id">
+          {{ university.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="status">Status</label>
+      <select
+        (change)="onStatusChange($any($event.target).value)"
+        [value]="selectedStatus"
+        class="filter-select"
+        id="status">
+        <option *ngFor="let status of statusOptions" [value]="status.value">
+          {{ status.label }}
+        </option>
+      </select>
+    </div>
+
+    <button (click)="clearFilters()" class="filter-clear">
+      <i class="fas fa-times"></i>
+      Limpar Filtros
+    </button>
+  </div>
+</div>
