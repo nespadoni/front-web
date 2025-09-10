@@ -6,7 +6,9 @@ import {Home} from './features/feed/home/home';
 import {LiveMatchesComponent} from './features/arena/live-matches/live-matches';
 import {HighlightsComponent} from './features/arena/highlights/highlights';
 import {LeaderboardsComponent} from './features/arena/leaderboards/leaderboards';
-import {TournamentsComponent} from './features/competitions/tournaments/tournaments';
+import {TournamentsComponent} from './pages/competitions/tournaments/tournaments';
+import {MatchesComponent} from './pages/competitions/matches/matches';
+import {CalendarComponent} from './pages/competitions/calendar/calendar';
 
 export const routes: Routes = [
   {
@@ -40,6 +42,14 @@ export const routes: Routes = [
   {
     path: 'tournaments',
     component: TournamentsComponent
+  },
+  {
+    path: 'matches',
+    component: MatchesComponent
+  },
+  {
+    path: 'calendar',
+    component: CalendarComponent
   },
   {
     path: '',
