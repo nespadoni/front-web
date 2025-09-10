@@ -5,6 +5,8 @@ import {TeamManagement} from './features/dashboard/team-management/team-manageme
 import {Home} from './features/feed/home/home';
 import {LiveMatchesComponent} from './features/arena/live-matches/live-matches';
 import {HighlightsComponent} from './features/arena/highlights/highlights';
+import {LeaderboardsComponent} from './features/arena/leaderboards/leaderboards';
+import {TournamentsComponent} from './features/competitions/tournaments/tournaments';
 
 export const routes: Routes = [
   {
@@ -30,6 +32,14 @@ export const routes: Routes = [
   {
     path: 'highlights',
     component: HighlightsComponent
+  },
+  {
+    path: 'leaderboards',
+    component: LeaderboardsComponent
+  },
+  {
+    path: 'tournaments',
+    component: TournamentsComponent
   },
   {
     path: '',
