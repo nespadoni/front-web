@@ -1,0 +1,189 @@
+<div class="matches-container">
+  <!-- Header com filtros -->
+  <div class="page-header">
+    <h1 class="page-title">
+      <i class="fas fa-flag-checkered"></i>
+      Matches
+    </h1>
+    <p class="page-subtitle">Acompanhe todos os jogos e partidas em tempo real</p>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters-section">
+    <div class="filter-group">
+      <label>Torneio</label>
+      <select (change)="onTournamentChange(+$any($event.target).value)" [value]="selectedTournament"
+              class="filter-select">
+        <option *ngFor="let tournament of tournaments" [value]="tournament.id">
+          {{ tournament.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Esporte</label>
+      <select (change)="onSportChange(+$any($event.target).value)" [value]="selectedSport" class="filter-select">
+        <option *ngFor="let sport of sports" [value]="sport.id">
+          <i [class]="sport.icon"></i> {{ sport.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Seção de Jogos ao Vivo -->
+  <div *ngIf="liveMatches.length > 0" class="live-matches-section">
+    <div class="section-header">
+      <h2>
+        <i class="fas fa-broadcast-tower live-icon"></i>
+        Jogos ao Vivo
+      </h2>
+      <div class="live-indicator">
+        <span class="live-dot"></span>
+        <span>{{ liveMatches.length }} jogo{{ liveMatches.length > 1 ? 's' : '' }} em andamento</span>
+      </div>
+    </div>
+
+    <div class="live-matches-grid">
+      <div *ngFor="let match of liveMatches; trackBy: trackByMatchId"
+           class="live-match-card">
+        <div class="live-header">
+          <div class="tournament-info">
+            <i [class]="match.sportIcon"></i>
+            <span>{{ match.tournament }}</span>
+          </div>
+          <div class="live-status">
+            <span class="live-badge">{{ getStatusText(match.status) }}</span>
+            <span class="live-time">{{ match.minute }}'</span>
+          </div>
+        </div>
+
+        <div class="live-match-content">
+          <div class="team home-team">
+            <div class="team-logo">
+              <img [alt]="match.homeTeam.name + ' logo'" [src]="match.homeTeam.logo"
+                   onerror="this.src='assets/teams/default-team.png'">
+            </div>
+            <span class="team-name">{{ match.homeTeam.name }}</span>
+          </div>
+
+          <div class="live-score">
+            <div class="score-display">
+              <span class="home-score">{{ match.homeTeam.score }}</span>
+              <span class="score-separator">-</span>
+              <span class="away-score">{{ match.awayTeam.score }}</span>
+            </div>
+            <div class="period">{{ match.period }}</div>
+          </div>
+
+          <div class="team away-team">
+            <div class="team-logo">
+              <img [alt]="match.awayTeam.name + ' logo'" [src]="match.awayTeam.logo"
+                   onerror="this.src='assets/teams/default-team.png'">
+            </div>
+            <span class="team-name">{{ match.awayTeam.name }}</span>
+          </div>
+        </div>
+
+        <div class="live-footer">
+          <div class="venue-info">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>{{ match.venue }}</span>
+          </div>
+          <button class="watch-btn">
+            <i class="fas fa-play"></i>
+            Assistir
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de Todos os Jogos -->
+  <div class="matches-section">
+    <div class="section-header">
+      <h2>
+        <i class="fas fa-list"></i>
+        Todos os Jogos
+      </h2>
+      <span class="matches-count">{{ filteredMatches.length }} jogo{{ filteredMatches.length !== 1 ? 's' : '' }}
+        encontrado{{ filteredMatches.length !== 1 ? 's' : '' }}</span>
+    </div>
+
+    <div class="matches-grid">
+      <div *ngFor="let match of filteredMatches; trackBy: trackByMatchId"
+           [ngClass]="getStatusClass(match.status)"
+           class="match-card">
+
+        <div class="match-header">
+          <div class="tournament-badge">
+            <i [class]="match.sportIcon"></i>
+            <span>{{ match.tournament }}</span>
+          </div>
+          <div [ngClass]="getStatusClass(match.status)" class="match-status">
+            <span>{{ getStatusText(match.status) }}</span>
+          </div>
+        </div>
+
+        <div class="match-content">
+          <div class="teams-display">
+            <div class="team home-team">
+              <div class="team-logo">
+                <img [alt]="match.homeTeam.name + ' logo'" [src]="match.homeTeam.logo"
+                     onerror="this.src='assets/teams/default-team.png'">
+              </div>
+              <span class="team-name">{{ match.homeTeam.name }}</span>
+            </div>
+
+            <div class="match-result">
+              <div *ngIf="match.status === 'finished' || match.status === 'live'" class="final-score">
+                <span class="home-score">{{ match.homeTeam.score }}</span>
+                <span class="score-separator">-</span>
+                <span class="away-score">{{ match.awayTeam.score }}</span>
+              </div>
+              <div *ngIf="match.status === 'scheduled'" class="match-time">
+                <div class="date">{{ formatDateTime(match.startTime) }}</div>
+              </div>
+            </div>
+
+            <div class="team away-team">
+              <div class="team-logo">
+                <img [alt]="match.awayTeam.name + ' logo'" [src]="match.awayTeam.logo"
+                     onerror="this.src='assets/teams/default-team.png'">
+              </div>
+              <span class="team-name">{{ match.awayTeam.name }}</span>
+            </div>
+          </div>
+
+          <div class="match-info">
+            <div class="venue">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>{{ match.venue }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-actions">
+          <button *ngIf="match.status === 'finished'" class="btn-outline">
+            <i class="fas fa-chart-bar"></i>
+            Estatísticas
+          </button>
+          <button *ngIf="match.status === 'live'" class="btn-primary">
+            <i class="fas fa-play"></i>
+            Assistir ao Vivo
+          </button>
+          <button *ngIf="match.status === 'scheduled'" class="btn-secondary">
+            <i class="fas fa-bell"></i>
+            Notificar-me
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensagem quando não há jogos -->
+    <div *ngIf="filteredMatches.length === 0" class="no-matches">
+      <i class="fas fa-search"></i>
+      <h3>Nenhum jogo encontrado</h3>
+      <p>Tente ajustar os filtros para encontrar mais jogos.</p>
+    </div>
+  </div>
+</div>

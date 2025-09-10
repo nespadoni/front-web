@@ -1,0 +1,149 @@
+<div class="leaderboards-container">
+  <!-- Header com filtros -->
+  <div class="page-header">
+    <h1 class="page-title">
+      <i class="fas fa-trophy"></i>
+      Leaderboards
+    </h1>
+    <p class="page-subtitle">Rankings e estatísticas dos melhores times e jogadores</p>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters-section">
+    <div class="filter-group">
+      <label>Torneio</label>
+      <select (change)="onTournamentChange(+$any($event.target).value)" [value]="selectedTournament"
+              class="filter-select">
+        <option *ngFor="let tournament of tournaments" [value]="tournament.id">
+          {{ tournament.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Esporte</label>
+      <select (change)="onSportChange(+$any($event.target).value)" [value]="selectedSport" class="filter-select">
+        <option *ngFor="let sport of sports" [value]="sport.id">
+          <i [class]="sport.icon"></i> {{ sport.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Ranking de Times -->
+  <div class="leaderboard-section">
+    <div class="section-header">
+      <h2>
+        <i class="fas fa-shield-alt"></i>
+        Ranking de Times
+      </h2>
+    </div>
+
+    <div class="teams-table-container">
+      <table class="teams-table">
+        <thead>
+        <tr>
+          <th class="position-col">Pos.</th>
+          <th class="team-col">Time</th>
+          <th class="points-col">Pts</th>
+          <th class="stats-col">V/E/D</th>
+          <th class="balance-col">Saldo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let team of teamsRanking; trackBy: trackByTeamId"
+            [class.top-position]="team.position <= 3"
+            class="team-row">
+          <td class="position-cell">
+            <div [ngClass]="getPositionClass(team.position)" class="position-wrapper">
+              <span class="position-number">{{ team.position }}</span>
+              <i *ngIf="team.position === 1" class="fas fa-crown position-icon"></i>
+              <i *ngIf="team.position === 2" class="fas fa-medal position-icon"></i>
+              <i *ngIf="team.position === 3" class="fas fa-award position-icon"></i>
+            </div>
+          </td>
+          <td class="team-cell">
+            <div class="team-info">
+              <div class="team-logo">
+                <img [alt]="team.name + ' logo'" [src]="team.logo"
+                     onerror="this.src='assets/logos/default-team.png'">
+              </div>
+              <span class="team-name">{{ team.name }}</span>
+            </div>
+          </td>
+          <td class="points-cell">
+            <span class="points-value">{{ team.points }}</span>
+          </td>
+          <td class="stats-cell">
+            <div class="stats-breakdown">
+              <span class="wins">{{ team.wins }}</span>
+              <span class="separator">/</span>
+              <span class="draws">{{ team.draws }}</span>
+              <span class="separator">/</span>
+              <span class="losses">{{ team.losses }}</span>
+            </div>
+          </td>
+          <td class="balance-cell">
+              <span [class.negative]="team.goalBalance < 0" [class.positive]="team.goalBalance > 0"
+                    class="balance-value">
+                {{ team.goalBalance > 0 ? '+' : '' }}{{ team.goalBalance }}
+              </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Ranking de Jogadores -->
+  <div class="leaderboard-section">
+    <div class="section-header">
+      <h2>
+        <i class="fas fa-star"></i>
+        Top Players
+      </h2>
+    </div>
+
+    <div class="players-grid">
+      <div *ngFor="let player of playersRanking; trackBy: trackByPlayerId"
+           [class.top-player]="player.position <= 3"
+           class="player-card">
+        <div [ngClass]="getPositionClass(player.position)" class="player-position">
+          <span class="position-number">{{ player.position }}</span>
+          <i *ngIf="player.position === 1" class="fas fa-crown position-icon"></i>
+          <i *ngIf="player.position === 2" class="fas fa-medal position-icon"></i>
+          <i *ngIf="player.position === 3" class="fas fa-award position-icon"></i>
+        </div>
+
+        <div class="player-info">
+          <div class="player-avatar">
+            <img [alt]="player.name + ' avatar'" [src]="player.avatar"
+                 onerror="this.src='assets/avatars/default-player.png'">
+          </div>
+          <div class="player-details">
+            <h3 class="player-name">{{ player.name }}</h3>
+            <p class="player-team">{{ player.team }}</p>
+          </div>
+        </div>
+
+        <div class="player-stats">
+          <div class="stat-item">
+            <i class="fas fa-futbol"></i>
+            <span class="stat-value">{{ player.goals }}</span>
+            <span class="stat-label">Gols</span>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-hands-helping"></i>
+            <span class="stat-value">{{ player.assists }}</span>
+            <span class="stat-label">Assist.</span>
+          </div>
+          <div class="stat-item total-points">
+            <i class="fas fa-trophy"></i>
+            <span class="stat-value">{{ player.points }}</span>
+            <span class="stat-label">Pontos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

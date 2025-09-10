@@ -1,0 +1,32 @@
+<section class="hero-banner">
+  <div class="banner-image"></div>
+  <div class="banner-content">
+    <div class="hero-badge">
+      <i [class]="featuredTournament?.sportIcon || 'fas fa-trophy'"></i>
+      <span>TORNEIO EM DESTAQUE</span>
+    </div>
+
+    <h1 class="hero-title">
+      {{ featuredTournament?.name || 'Torneios Universitários' }}
+    </h1>
+
+    <p class="hero-subtitle">
+      {{ featuredTournament?.description || 'Descubra e participe dos principais campeonatos universitários' }}
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-number">{{ getTotalTournaments() }}</span>
+        <span class="stat-label">Torneios Ativos</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">{{ getTotalParticipants() }}</span>
+        <span class="stat-label">Participantes</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">{{ getActiveSports() }}</span>
+        <span class="stat-label">Modalidades</span>
+      </div>
+    </div>
+  </div>
+</section>

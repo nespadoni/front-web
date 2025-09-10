@@ -1,0 +1,215 @@
+.matches-sidebar {
+  background: var(--card-background);
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  padding: 24px;
+  box-shadow: 0 10px 40px var(--shadow);
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+  overflow: hidden; // Evitar overflow na sidebar
+
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+
+    h3 {
+      color: var(--text-color);
+      font-size: 20px;
+      font-weight: 800;
+      margin: 0;
+
+      i {
+        color: var(--primary-color);
+        font-size: 18px;
+        margin-right: 8px;
+      }
+    }
+  }
+
+  .selected-date {
+    background: linear-gradient(135deg, var(--hover-bg), var(--card-background));
+    border-radius: 16px;
+    padding: 20px 16px;
+    margin-bottom: 24px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+
+    .date-display {
+      color: var(--text-color);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: capitalize;
+      margin-bottom: 8px;
+    }
+
+    .matches-count {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+  }
+
+  .matches-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; // Gap menor
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 8px;
+    margin-bottom: 24px;
+
+    // Scrollbar customizada
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--secondary-color);
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 10px;
+
+      &:hover {
+        background: var(--text-secondary);
+      }
+    }
+
+    .sidebar-match-card {
+      // Não aplicar transformações que causem overflow
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+  }
+
+  .no-matches {
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-secondary);
+
+      i {
+        font-size: 48px;
+        margin-bottom: 16px;
+        opacity: 0.5;
+        color: var(--primary-color);
+      }
+
+      h4 {
+        color: var(--text-color);
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      p {
+        font-size: 14px;
+        line-height: 1.5;
+        max-width: 280px;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .quick-tips {
+    background: linear-gradient(135deg, rgba(26, 115, 232, 0.05), rgba(102, 126, 234, 0.02));
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(26, 115, 232, 0.1);
+
+    h4 {
+      color: var(--text-color);
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      i {
+        color: var(--warning-color);
+        font-size: 12px;
+      }
+    }
+
+    .tips-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        color: var(--text-secondary);
+        font-size: 12px;
+        line-height: 1.4;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        i {
+          color: var(--primary-color);
+          font-size: 10px;
+          margin-top: 2px;
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+}
+
+// Responsividade
+@media (max-width: 1024px) {
+  .matches-sidebar {
+    position: static;
+    margin-top: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .matches-sidebar {
+    padding: 20px;
+
+    .sidebar-header h3 {
+      font-size: 18px;
+    }
+
+    .selected-date {
+      padding: 16px 12px;
+
+      .date-display {
+        font-size: 14px;
+      }
+
+      .matches-count {
+        font-size: 12px;
+      }
+    }
+
+    .matches-list {
+      gap: 10px;
+    }
+
+    .no-matches .empty-state {
+      padding: 30px 15px;
+
+      i {
+        font-size: 36px;
+      }
+
+      h4 {
+        font-size: 16px;
+      }
+
+      p {
+        font-size: 13px;
+      }
+    }
+  }
+}
