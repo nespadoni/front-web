@@ -1,0 +1,92 @@
+<div class="calendar-section">
+  <!-- Header com navegação -->
+  <div class="section-header">
+    <div class="header-info">
+      <h2>
+        <i class="fas fa-calendar-alt"></i>
+        {{ currentMonthYear }}
+      </h2>
+      <span class="subtitle">Navegue pelos eventos programados</span>
+    </div>
+
+    <div class="calendar-nav">
+      <button (click)="onPreviousMonth()" class="nav-btn" title="Mês anterior">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+
+      <button (click)="onNextMonth()" class="nav-btn" title="Próximo mês">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+
+      <button (click)="onGoToToday()" class="today-btn">
+        <i class="fas fa-calendar-check"></i>
+        Hoje
+      </button>
+    </div>
+  </div>
+
+  <!-- Grid do calendário -->
+  <div class="calendar-card">
+    <!-- Cabeçalho dos dias da semana -->
+    <div class="calendar-weekdays">
+      <div *ngFor="let dayName of dayNames" class="weekday">
+        {{ dayName }}
+      </div>
+    </div>
+
+    <!-- Grade dos dias -->
+    <div class="calendar-grid">
+      <div
+        (click)="onDayClick(day, $event)"
+        *ngFor="let day of calendarDays; trackBy: trackByDay"
+        [class]="getDayClasses(day)"
+        class="calendar-day">
+
+        <!-- Header do dia -->
+        <div class="day-header">
+          <span class="day-number">{{ day.day }}</span>
+
+          <!-- Indicador de mais eventos -->
+          <button
+            (click)="onMoreIndicatorClick(day, $event)"
+            *ngIf="day.hasMatches && day.matchCount > 2"
+            [title]="'Ver todos os ' + day.matchCount + ' jogos'"
+            class="more-indicator">
+            <span class="more-count">+{{ day.matchCount - 2 }}</span>
+          </button>
+        </div>
+
+        <!-- Mini jogos do dia (máximo 2 visíveis) -->
+        <div *ngIf="day.hasMatches" class="day-matches">
+          <div
+            *ngFor="let match of day.matches.slice(0, 2); trackBy: trackByMatchId"
+            [style.border-left-color]="match.sportColor"
+            [title]="getMatchTooltip(match)"
+            class="mini-match">
+
+            <div class="match-time">{{ match.time }}</div>
+
+            <div class="match-teams">
+              <span class="team-vs">
+                {{ match.homeTeam.shortName }} vs {{ match.awayTeam.shortName }}
+              </span>
+            </div>
+
+            <div class="sport-indicator">
+              <i [class]="match.sportIcon" [style.color]="match.sportColor"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Indicadores especiais -->
+        <div *ngIf="day.isWeekend && day.hasMatches" class="weekend-indicator">
+          <i class="fas fa-sun"></i>
+        </div>
+
+        <div *ngIf="day.isHoliday" [title]="day.holidayName" class="holiday-indicator">
+          <i class="fas fa-star"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
