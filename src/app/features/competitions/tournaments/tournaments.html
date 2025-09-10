@@ -1,0 +1,162 @@
+<div class="tournaments-container">
+  <!-- Header com filtros -->
+  <div class="page-header">
+    <h1 class="page-title">
+      <i class="fas fa-trophy"></i>
+      Tournaments
+    </h1>
+    <p class="page-subtitle">Descubra e acompanhe os melhores campeonatos universitários</p>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters-section">
+    <div class="filter-group">
+      <label>Esporte</label>
+      <select (change)="onSportChange(+$any($event.target).value)" [value]="selectedSport" class="filter-select">
+        <option *ngFor="let sport of sports" [value]="sport.id">
+          <i [class]="sport.icon"></i> {{ sport.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Universidade</label>
+      <select (change)="onUniversityChange(+$any($event.target).value)" [value]="selectedUniversity"
+              class="filter-select">
+        <option *ngFor="let university of universities" [value]="university.id">
+          {{ university.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Banner do Torneio em Destaque -->
+  <div class="featured-tournament">
+    <div [style.background-image]="'url(' + featuredTournament.banner + ')'"
+         class="featured-banner"
+         onerror="this.style.backgroundImage='url(assets/banners/default-banner.jpg)'">
+      <div class="banner-overlay">
+        <div class="featured-content">
+          <div class="featured-info">
+            <div class="tournament-badge">
+              <i [class]="featuredTournament.sportIcon"></i>
+              <span>{{ featuredTournament.sport }}</span>
+            </div>
+
+            <h2 class="featured-title">{{ featuredTournament.name }}</h2>
+            <p class="featured-description">{{ featuredTournament.description }}</p>
+
+            <div class="featured-stats">
+              <div class="stat-item">
+                <i class="fas fa-users"></i>
+                <span>{{ featuredTournament.participants }} times</span>
+              </div>
+              <div class="stat-item">
+                <i class="fas fa-university"></i>
+                <span>{{ featuredTournament.universities }} universidades</span>
+              </div>
+              <div class="stat-item">
+                <i class="fas fa-trophy"></i>
+                <span>{{ featuredTournament.prize }}</span>
+              </div>
+            </div>
+
+            <div class="featured-actions">
+              <button class="btn-primary">
+                <i class="fas fa-play"></i>
+                Ver Detalhes
+              </button>
+              <button class="btn-secondary">
+                <i class="fas fa-calendar-plus"></i>
+                Inscrever-se
+              </button>
+            </div>
+          </div>
+
+          <div class="featured-dates">
+            <div class="date-info">
+              <span class="date-label">Início</span>
+              <span class="date-value">{{ formatDate(featuredTournament.startDate) }}</span>
+            </div>
+            <div class="date-divider">-</div>
+            <div class="date-info">
+              <span class="date-label">Término</span>
+              <span class="date-value">{{ formatDate(featuredTournament.endDate) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de Torneios -->
+  <div class="tournaments-section">
+    <div class="section-header">
+      <h2>
+        <i class="fas fa-list"></i>
+        Todos os Torneios
+      </h2>
+      <span class="tournaments-count">{{ filteredTournaments.length }} torneios encontrados</span>
+    </div>
+
+    <div class="tournaments-grid">
+      <div *ngFor="let tournament of filteredTournaments; trackBy: trackByTournamentId"
+           class="tournament-card">
+        <div class="card-header">
+          <div class="tournament-logo">
+            <img [alt]="tournament.name + ' logo'" [src]="tournament.logo"
+                 onerror="this.src='assets/tournaments/default-tournament.png'">
+          </div>
+          <div [ngClass]="getStatusClass(tournament.status)" class="tournament-status">
+            <span>{{ getStatusText(tournament.status) }}</span>
+          </div>
+        </div>
+
+        <div class="card-content">
+          <h3 class="tournament-name">{{ tournament.name }}</h3>
+          <p class="tournament-description">{{ tournament.description }}</p>
+
+          <div class="tournament-meta">
+            <div class="meta-item">
+              <i [class]="tournament.sportIcon"></i>
+              <span>{{ tournament.sport }}</span>
+            </div>
+            <div class="meta-item">
+              <i class="fas fa-university"></i>
+              <span>{{ tournament.university }}</span>
+            </div>
+            <div class="meta-item">
+              <i class="fas fa-users"></i>
+              <span>{{ tournament.participants }} participantes</span>
+            </div>
+          </div>
+
+          <div class="tournament-dates">
+            <div class="date-range">
+              <i class="fas fa-calendar-alt"></i>
+              <span>{{ formatDate(tournament.startDate) }} - {{ formatDate(tournament.endDate) }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn-outline">
+            <i class="fas fa-info-circle"></i>
+            Detalhes
+          </button>
+          <button [disabled]="tournament.status === 'finished'" class="btn-primary">
+            <i class="fas fa-sign-in-alt"></i>
+            {{ tournament.status === 'finished' ? 'Finalizado' : 'Participar' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensagem quando não há torneios -->
+    <div *ngIf="filteredTournaments.length === 0" class="no-tournaments">
+      <i class="fas fa-search"></i>
+      <h3>Nenhum torneio encontrado</h3>
+      <p>Tente ajustar os filtros para encontrar mais torneios.</p>
+    </div>
+  </div>
+</div>
