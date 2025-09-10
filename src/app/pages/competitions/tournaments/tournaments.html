@@ -1,0 +1,18 @@
+<div class="tournaments-container">
+  <!-- Hero Section -->
+  <app-tournament-hero
+    [featuredTournament]="featuredTournament"
+    [tournaments]="tournaments">
+  </app-tournament-hero>
+
+  <!-- Filters Section -->
+  <app-tournament-filters
+    (filtersChanged)="onFiltersChanged($event)">
+  </app-tournament-filters>
+
+  <!-- Tournaments List -->
+  <app-tournament-list
+    (clearFilters)="onClearFilters()"
+    [tournaments]="filteredTournaments">
+  </app-tournament-list>
+</div>
