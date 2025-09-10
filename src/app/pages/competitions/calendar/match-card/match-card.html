@@ -1,0 +1,99 @@
+<div
+  (click)="onMatchClick()"
+  [class]="'match-card match-card--' + variant + ' ' + getStatusClass() + ' ' + getPriorityClass()"
+  [title]="match.description">
+
+  <!-- Header do card -->
+  <div class="match-header">
+    <div class="match-time">
+      <i class="fas fa-clock"></i>
+      <span class="time">{{ match.time }}</span>
+      <span *ngIf="variant === 'full'" class="date">{{ formatDate() }}</span>
+    </div>
+
+    <div [class]="getStatusClass()" class="status-badge">
+      <span>{{ getStatusText() }}</span>
+      <div *ngIf="match.status === 'live'" class="live-indicator"></div>
+    </div>
+  </div>
+
+  <!-- Times -->
+  <div class="match-teams">
+    <div class="team home-team">
+      <div class="team-logo">
+        <img
+          [alt]="match.homeTeam.name + ' logo'"
+          [src]="match.homeTeam.logo"
+          onerror="this.src='assets/teams/default-team.png'">
+      </div>
+      <div class="team-info">
+        <span class="team-name">{{ match.homeTeam.name }}</span>
+        <span *ngIf="variant === 'full'" class="university">{{ match.homeTeam.university }}</span>
+      </div>
+    </div>
+
+    <div class="vs-section">
+      <span class="vs-text">VS</span>
+      <div class="sport-indicator">
+        <i [class]="match.sportIcon" [style.color]="match.sportColor"></i>
+      </div>
+    </div>
+
+    <div class="team away-team">
+      <div class="team-logo">
+        <img
+          [alt]="match.awayTeam.name + ' logo'"
+          [src]="match.awayTeam.logo"
+          onerror="this.src='assets/teams/default-team.png'">
+      </div>
+      <div class="team-info">
+        <span class="team-name">{{ match.awayTeam.name }}</span>
+        <span *ngIf="variant === 'full'" class="university">{{ match.awayTeam.university }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detalhes do jogo -->
+  <div *ngIf="variant === 'full'" class="match-details">
+    <div class="detail-item tournament">
+      <i class="fas fa-trophy"></i>
+      <span>{{ match.tournament }}</span>
+    </div>
+
+    <div class="detail-item venue">
+      <i class="fas fa-map-marker-alt"></i>
+      <span>{{ match.venue }}</span>
+    </div>
+
+    <div *ngIf="match.maxAttendance" class="detail-item attendance">
+      <i class="fas fa-users"></i>
+      <span>{{ match.attendance || 0 }}/{{ match.maxAttendance }} pessoas</span>
+    </div>
+  </div>
+
+  <!-- Footer com ações -->
+  <div *ngIf="variant === 'full'" class="match-actions">
+    <button
+      *ngIf="match.streamUrl"
+      class="action-btn primary"
+      title="Assistir ao vivo">
+      <i class="fas fa-play"></i>
+      <span>Assistir</span>
+    </button>
+
+    <button class="action-btn secondary" title="Adicionar lembrete">
+      <i class="fas fa-bell"></i>
+      <span>Lembrete</span>
+    </button>
+
+    <button class="action-btn outline" title="Compartilhar">
+      <i class="fas fa-share-alt"></i>
+      <span>Compartilhar</span>
+    </button>
+  </div>
+
+  <!-- Indicador de prioridade -->
+  <div *ngIf="match.priority === 'high'" class="priority-indicator">
+    <i class="fas fa-star"></i>
+  </div>
+</div>
