@@ -1,0 +1,314 @@
+.tournament-card {
+  background: var(--card-background);
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 520px; // Altura mínima uniforme
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px var(--shadow);
+    border-color: var(--primary-color);
+  }
+
+  &.status-upcoming {
+    border-left: 4px solid var(--warning-color);
+  }
+
+  &.status-active {
+    border-left: 4px solid var(--success-color);
+    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.15);
+  }
+
+  &.status-finished {
+    border-left: 4px solid var(--text-secondary);
+  }
+
+  .card-header {
+    position: relative;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, var(--hover-bg), var(--card-background));
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .tournament-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--input-background);
+      border: 2px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .status-badge {
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      &.status-upcoming {
+        background: rgba(255, 143, 0, 0.1);
+        color: var(--warning-color);
+        border: 1px solid var(--warning-color);
+      }
+
+      &.status-active {
+        background: rgba(34, 197, 94, 0.1);
+        color: var(--success-color);
+        border: 1px solid var(--success-color);
+        animation: pulse 2s infinite;
+      }
+
+      &.status-finished {
+        background: rgba(156, 163, 175, 0.1);
+        color: var(--text-secondary);
+        border: 1px solid var(--text-secondary);
+      }
+    }
+  }
+
+  .card-content {
+    padding: 24px;
+    flex: 1; // Ocupa espaço disponível
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .sport-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      i {
+        font-size: 14px;
+      }
+    }
+
+    .tournament-name {
+      color: var(--text-color);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin: 0;
+    }
+
+    .tournament-description {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0;
+      flex: 1; // Permite crescer
+    }
+
+    .tournament-details {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .detail-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-color);
+        font-size: 13px;
+        font-weight: 500;
+
+        i {
+          color: var(--primary-color);
+          width: 14px;
+          font-size: 12px;
+          text-align: center;
+        }
+      }
+    }
+
+    .tournament-prize {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 193, 7, 0.05));
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 193, 7, 0.3);
+      color: var(--text-color);
+      font-size: 13px;
+      font-weight: 700;
+
+      i {
+        color: #ffc107;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .card-actions {
+    padding: 20px 24px;
+    background: var(--input-background);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 12px;
+    margin-top: auto; // Sempre no final
+
+    button {
+      flex: 1;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      i {
+        font-size: 12px;
+      }
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-color), #667eea);
+      color: white;
+      border: none;
+      box-shadow: 0 2px 8px rgba(26, 115, 232, 0.3);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
+      }
+    }
+
+    .btn-secondary {
+      background: var(--success-color);
+      color: white;
+      border: none;
+      box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+
+      &:hover {
+        background: #16a34a;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+      }
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+
+      &:hover {
+        background: var(--hover-bg);
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .tournament-card {
+    min-height: 480px;
+
+    .card-header {
+      padding: 16px 20px;
+
+      .tournament-logo {
+        width: 40px;
+        height: 40px;
+      }
+
+      .status-badge {
+        font-size: 10px;
+        padding: 4px 10px;
+      }
+    }
+
+    .card-content {
+      padding: 20px;
+
+      .sport-info {
+        font-size: 11px;
+
+        i {
+          font-size: 13px;
+        }
+      }
+
+      .tournament-name {
+        font-size: 16px;
+      }
+
+      .tournament-description {
+        font-size: 13px;
+      }
+
+      .tournament-details {
+        .detail-item {
+          font-size: 12px;
+
+          i {
+            font-size: 11px;
+            width: 12px;
+          }
+        }
+      }
+
+      .tournament-prize {
+        font-size: 12px;
+        padding: 10px 14px;
+
+        i {
+          font-size: 13px;
+        }
+      }
+    }
+
+    .card-actions {
+      padding: 16px 20px;
+      flex-direction: column;
+      gap: 10px;
+
+      button {
+        font-size: 11px;
+        padding: 8px 14px;
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+<div [class]="'status-' + tournament.status" class="tournament-card">
+  <div class="card-header">
+    <div class="tournament-logo">
+      <img [alt]="tournament.name" [src]="tournament.logo"
+           onerror="this.src='assets/tournaments/default-tournament.png'">
+    </div>
+    <div [class]="'status-' + tournament.status" class="status-badge">
+      <span>{{ getStatusText() }}</span>
+    </div>
+  </div>
+
+  <div class="card-content">
+    <div class="sport-info">
+      <i [class]="tournament.sportIcon" [style.color]="tournament.sportColor"></i>
+      <span>{{ tournament.sport }}</span>
+    </div>
+
+    <h3 class="tournament-name">{{ tournament.name }}</h3>
+    <p class="tournament-description">{{ tournament.description }}</p>
+
+    <div class="tournament-details">
+      <div class="detail-item">
+        <i class="fas fa-university"></i>
+        <span>{{ tournament.university }}</span>
+      </div>
+
+      <div class="detail-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>{{ tournament.location }}</span>
+      </div>
+
+      <div class="detail-item">
+        <i class="fas fa-calendar-alt"></i>
+        <span>{{ formatDateRange() }}</span>
+      </div>
+
+      <div class="detail-item">
+        <i class="fas fa-users"></i>
+        <span>{{ tournament.participants }}/{{ tournament.maxParticipants }} participantes</span>
+      </div>
+    </div>
+
+    <div class="tournament-prize">
+      <i class="fas fa-trophy"></i>
+      <span>{{ tournament.prize }}</span>
+    </div>
+  </div>
+
+  <div class="card-actions">
+    <button *ngIf="tournament.status === 'upcoming'" class="btn-primary">
+      <i class="fas fa-user-plus"></i>
+      Inscrever-se
+    </button>
+    <button *ngIf="tournament.status === 'active'" class="btn-secondary">
+      <i class="fas fa-eye"></i>
+      Acompanhar
+    </button>
+    <button *ngIf="tournament.status === 'finished'" class="btn-outline">
+      <i class="fas fa-chart-bar"></i>
+      Resultados
+    </button>
+
+    <button class="btn-outline">
+      <i class="fas fa-info-circle"></i>
+      Detalhes
+    </button>
+  </div>
+</div>
