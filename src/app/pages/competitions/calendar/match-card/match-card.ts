@@ -11,7 +11,7 @@ import {CalendarMatch} from '../interfaces/calendar.interface';
 })
 export class MatchCardComponent {
   @Input() match!: CalendarMatch;
-  @Input() variant: 'full' | 'compact' | 'mini' = 'full';
+  @Input() variant: 'full' | 'compact' | 'mini' | 'sidebar' = 'full'; // ADICIONADA VARIANTE sidebar
   @Output() matchClick = new EventEmitter<CalendarMatch>();
 
   onMatchClick(): void {
@@ -44,7 +44,6 @@ export class MatchCardComponent {
       case 'postponed':
         return 'ADIADO';
       default:
-        // CORREÇÃO: Tipo mais específico para status
         return (this.match.status as string).toUpperCase();
     }
   }

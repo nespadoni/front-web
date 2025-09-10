@@ -6,7 +6,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
-  overflow: hidden;
+  overflow: visible; // Permitir overflow controlado
 
   &:hover {
     transform: translateY(-4px);
@@ -48,21 +48,115 @@
     }
   }
 
-  // Estados por status
+  // VARIANTE SIDEBAR: Compacta e vertical
+  &.match-card--sidebar {
+    padding: 12px;
+    overflow: hidden; // Sidebar não pode ter overflow
+
+    // Hover suave para sidebar
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px var(--shadow);
+      border-color: var(--primary-color);
+    }
+
+    .match-header {
+      margin-bottom: 8px;
+
+      .match-time .time {
+        font-size: 13px;
+      }
+
+      .status-badge {
+        font-size: 9px;
+        padding: 3px 6px;
+      }
+    }
+
+    .match-teams {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 8px;
+      align-items: center;
+      justify-content: center;
+
+      .team {
+        display: flex;
+        justify-content: center; // ✅ Centralizar todo o conjunto
+        align-items: center;
+        gap: 8px;
+        width: auto; // ✅ Não ocupar toda a largura
+        max-width: 100%; // Limitar apenas para não sair da área
+
+        &.home-team,
+        &.away-team {
+          flex-direction: row; // ✅ Sempre horizontal
+        }
+
+        .team-logo {
+          width: 28px;
+          height: 28px;
+          flex-shrink: 0; // ✅ Logo mantém tamanho
+        }
+
+        .team-info {
+          // ✅ REMOVIDO flex: 1 para não ocupar todo espaço
+          min-width: 0;
+
+          .team-name {
+            font-size: 12px;
+            white-space: normal;
+            line-height: 1.2;
+            max-height: 2.4em;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            text-align: center; // ✅ Nome centralizado
+          }
+        }
+      }
+
+      // VS centralizado entre os times
+      .vs-section {
+        display: flex;
+        flex-direction: row;
+        align-self: center;
+        margin: 2px 0; // Margem menor
+        gap: 3px;
+
+        .vs-text {
+          font-size: 9px;
+        }
+
+        .sport-indicator {
+          width: 20px;
+          height: 20px;
+
+          i {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+
+    // Estrela de prioridade menor na sidebar
+    .priority-indicator {
+      top: 8px;
+      right: 8px;
+      width: 18px;
+      height: 18px;
+      font-size: 8px;
+    }
+  }
+
+  // Estados por status - SEM barra verde
   &.status-live {
     border-color: var(--success-color);
     background: linear-gradient(135deg, rgba(34, 197, 94, 0.05), var(--card-background));
     box-shadow: 0 4px 20px rgba(34, 197, 94, 0.1);
-
-    .match-header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--success-color), #10b981);
-    }
+    // Barra verde removida completamente
   }
 
   &.status-finished {
@@ -179,6 +273,7 @@
     justify-content: space-between;
     margin-bottom: 16px;
     gap: 12px;
+    position: relative;
 
     .team {
       display: flex;
@@ -359,17 +454,18 @@
 
   .priority-indicator {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 24px;
-    height: 24px;
+    top: 10px;
+    right: 10px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 10px;
+    font-size: 9px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
   }
 }
 
@@ -395,6 +491,25 @@
 
     &.match-card--mini {
       padding: 10px;
+    }
+
+    &.match-card--sidebar {
+      padding: 10px;
+
+      .team .team-logo {
+        width: 24px;
+        height: 24px;
+      }
+
+      .team-info .team-name {
+        font-size: 11px;
+      }
+
+      .priority-indicator {
+        width: 16px;
+        height: 16px;
+        font-size: 7px;
+      }
     }
 
     .match-teams {
