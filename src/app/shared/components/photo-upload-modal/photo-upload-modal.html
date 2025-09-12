@@ -1,0 +1,57 @@
+<div (click)="isProcessing ? null : onClose()" [class.show]="isVisible" class="modal-overlay">
+  <div (click)="$event.stopPropagation()" class="modal-content">
+    <div class="modal-header">
+      <h2>Adicionar Foto de Perfil</h2>
+      <button (click)="onClose()" [disabled]="isProcessing" aria-label="Fechar" class="close-btn">
+        <i class="fa-solid fa-times"></i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div (click)="fileInput.click()"
+           (dragleave)="onDragLeave($event)"
+           (dragover)="onDragOver($event)"
+           (drop)="onDrop($event)"
+           [class.drag-over]="isDragOver"
+           class="upload-area">
+
+        <!-- Preview da imagem -->
+        <div *ngIf="previewUrl" class="image-preview">
+          <img [src]="previewUrl" alt="Preview da foto"/>
+          <button (click)="removeImage(); $event.stopPropagation()" class="remove-image">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+
+        <!-- Área de upload -->
+        <div *ngIf="!previewUrl" class="upload-placeholder">
+          <i class="fa-solid fa-camera upload-icon"></i>
+          <h3>Adicione sua foto de perfil</h3>
+          <p>Clique aqui ou arraste uma imagem</p>
+          <small>Formatos aceitos: JPG, PNG, GIF (max: 5MB)</small>
+        </div>
+      </div>
+
+      <input
+        #fileInput
+        (change)="onFileSelected($event)"
+        accept="image/*"
+        style="display: none;"
+        type="file">
+    </div>
+
+    <div class="modal-footer">
+      <button
+        (click)="onSave()"
+        [class.loading]="isProcessing"
+        [disabled]="!selectedFile || isProcessing"
+        class="btn-primary">
+        {{ isProcessing ? 'Registrando...' : 'Salvar e Registrar' }}
+      </button>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>

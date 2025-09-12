@@ -1,14 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router, RouterOutlet} from '@angular/router';
 import {filter} from 'rxjs/operators';
+import {CommonModule} from '@angular/common';
+import {ConfirmationModalComponent} from './shared/components/confirmation-modal/confirmation-modal.component';
 import {SidebarComponent} from './layouts/sidebar/sidebar';
 import {Socialbar} from './layouts/socialbar/socialbar';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
+  imports: [CommonModule,
     RouterOutlet,
+    ConfirmationModalComponent,
     SidebarComponent,
     Socialbar
   ],

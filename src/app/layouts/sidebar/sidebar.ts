@@ -1,20 +1,25 @@
 import {Component, Inject, OnInit, Renderer2} from '@angular/core';
 import {CommonModule, DOCUMENT} from '@angular/common';
-import {Router} from '@angular/router';
-import {AuthService} from '../../core/services/auth.service';
+import {Router, RouterLink} from '@angular/router'; // Adicionar RouterLink
 import {ModalService} from '../../core/services/modal.service';
-import {ConfirmationModalComponent} from '../../shared/components/confirmation-modal/confirmation-modal.component';
+import {AuthService, User} from '../../features/auth/auth.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, ConfirmationModalComponent],
+  imports: [
+    CommonModule,
+    RouterLink // Adicionar import do RouterLink
+  ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss'
 })
 export class SidebarComponent implements OnInit {
   isSettingsOpen: boolean = false;
   isDarkMode: boolean = true;
+  currentUser$: Observable<User | null>; // Observable para os dados do usuário
+  baseUrl: string;
 
   constructor(
     private renderer: Renderer2,
@@ -26,9 +31,32 @@ export class SidebarComponent implements OnInit {
     const savedTheme = localStorage.getItem('theme');
     this.isDarkMode = savedTheme ? savedTheme === 'dark' : true;
     this.applyTheme();
+
+    // Atribui o observable do serviço à propriedade do componente
+    this.currentUser$ = this.authService.currentUser$;
+    this.baseUrl = this.authService.baseUrl;
   }
 
   ngOnInit(): void {
+  }
+
+  getUserProfilePhotoUrl(user: User): string {
+    if (!user.profile_photo_url) {
+      return '/assets/images/avatars/default-avatar.png';
+    }
+
+    // Se a URL já começar com http, usar diretamente
+    if (user.profile_photo_url.startsWith('http')) {
+      return user.profile_photo_url;
+    }
+
+    // Se começar com /, concatenar com baseUrl
+    if (user.profile_photo_url.startsWith('/')) {
+      return this.baseUrl + user.profile_photo_url;
+    }
+
+    // Caso contrário, assumir que é um caminho relativo
+    return this.baseUrl + '/' + user.profile_photo_url;
   }
 
   toggleSettings(): void {
@@ -58,7 +86,7 @@ export class SidebarComponent implements OnInit {
         message: 'Tem certeza que deseja sair da sua conta? Você será redirecionado para a tela de login.',
         confirmText: 'Sim, Sair',
         cancelText: 'Cancelar',
-        type: 'danger' // 👈 MUDEI PARA DANGER (VERMELHO)
+        type: 'danger'
       },
       () => this.executeLogout()
     );

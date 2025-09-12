@@ -5,10 +5,13 @@ import {provideAnimations} from '@angular/platform-browser/animations';
 import {routes} from './app/app.routes';
 import {importProvidersFrom, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
+import {authInterceptor} from './app/features/auth/auth.interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimations(),
     provideZonelessChangeDetection(),
     provideBrowserGlobalErrorListeners(),

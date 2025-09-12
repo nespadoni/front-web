@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Router, RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router'; // Adicionar RouterLink
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import {Router, RouterLink} from '@angular/router';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink // Adicionar RouterLink aos imports
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss'
@@ -17,6 +18,7 @@ import {Router, RouterLink} from '@angular/router';
 export class Login implements OnInit {
   loginForm!: FormGroup;
   isLoading = false;
+  errorMessage: string | null = null;
 
   private readonly ERROR_MESSAGES = {
     email: 'Email é obrigatório',
@@ -25,7 +27,8 @@ export class Login implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly authService: AuthService
   ) {
   }
 
@@ -34,6 +37,7 @@ export class Login implements OnInit {
   }
 
   onSubmit(): void {
+    this.errorMessage = null; // Resetar mensagem de erro
     if (this.loginForm.valid) {
       this.handleValidSubmission();
     } else {
@@ -44,14 +48,12 @@ export class Login implements OnInit {
   signInWithGoogle(): void {
     if (this.isLoading) return;
     console.log('Google Sign In');
-    // Redireciona para home após login social
     this.redirectToHome();
   }
 
   signInWithApple(): void {
     if (this.isLoading) return;
     console.log('Apple Sign In');
-    // Redireciona para home após login social
     this.redirectToHome();
   }
 
@@ -94,16 +96,24 @@ export class Login implements OnInit {
 
   private handleValidSubmission(): void {
     this.isLoading = true;
-    const formData = this.loginForm.value;
+    const {email, password} = this.loginForm.value;
 
-    console.log('Login:', formData);
+    this.authService.login({email, password}).subscribe({
+      next: () => {
+        // Se chegou aqui, a resposta foi validada e o token foi salvo pelo AuthService.
+        console.log('Login realizado com sucesso! Redirecionando para home...');
 
-    // Simula API call e redireciona para home
-    setTimeout(() => {
-      this.isLoading = false;
-      console.log('Login realizado com sucesso! Redirecionando para home...');
-      this.redirectToHome();
-    }, 2000);
+        // Desativa o spinner ANTES de navegar para que a UI não fique travada.
+        this.isLoading = false;
+        this.redirectToHome();
+      },
+      error: (err) => {
+        console.error('Erro no login:', err);
+        // A mensagem de erro pode vir da API ou do erro que lançamos no 'tap'
+        this.errorMessage = err.error?.message || err.message || 'Email ou senha inválidos.';
+        this.isLoading = false; // Garante que o spinner pare em caso de erro.
+      }
+    });
   }
 
   private redirectToHome(): void {

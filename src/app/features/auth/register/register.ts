@@ -8,28 +8,21 @@ import {
   ValidationErrors,
   Validators
 } from '@angular/forms';
-import {Router, RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router'; // Adicionar RouterLink
+import {AuthService, RegisterRequest} from '../auth.service';
+import {University} from '../../../shared/models/university/university.interface';
+import {UniversityService} from '../../../shared/models/university/university.service';
+import {PhotoUploadModal} from '../../../shared/components/photo-upload-modal/photo-upload-modal';
 
-// Interface para tipagem dos dados de registro do usuário
-interface UserRegistrationData {
-  firstName: string;
-  lastName: string;
-  university: string;
-  role: string;
-  email: string;
-  password: string;
-}
-
-// Tipo para as chaves das mensagens de erro
 type ErrorMessageKey =
   'firstName'
   | 'lastName'
   | 'university'
-  | 'role'
   | 'email'
   | 'password'
   | 'confirmPassword'
-  | 'acceptTerms';
+  | 'acceptTerms'
+  | 'telephone';
 
 @Component({
   selector: 'app-register',
@@ -37,28 +30,32 @@ type ErrorMessageKey =
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink, // Adicionar RouterLink
+    PhotoUploadModal
   ],
   templateUrl: './register.html',
   styleUrl: './register.scss'
 })
 export class Register implements OnInit {
   registerForm!: FormGroup;
+  universities: University[] = [];
   isLoading = false;
+  isLoadingUniversities = true;
+  errorMessage: string | null = null;
+  showPhotoModal = false;
+  private registrationPayload: RegisterRequest | null = null;
 
-  // Mensagens de erro personalizadas para cada campo
   private readonly ERROR_MESSAGES: Record<ErrorMessageKey, string> = {
     firstName: 'Nome é obrigatório',
     lastName: 'Sobrenome é obrigatório',
     university: 'Universidade é obrigatória',
-    role: 'Função é obrigatória',
     email: 'Email é obrigatório',
+    telephone: 'Telefone é obrigatório',
     password: 'Senha é obrigatória',
     confirmPassword: 'Confirmação de senha é obrigatória',
     acceptTerms: 'Você deve aceitar os termos'
   };
 
-  // Expressões regulares para validação de força da senha
   private readonly PASSWORD_REGEX = {
     number: /[0-9]/,
     upper: /[A-Z]/,
@@ -68,42 +65,52 @@ export class Register implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly authService: AuthService,
+    private readonly universityService: UniversityService
   ) {
   }
 
   ngOnInit(): void {
     this.initializeForm();
+    this.loadUniversities();
   }
 
-  // Manipula o envio do formulário
   onSubmit(): void {
+    this.errorMessage = null;
     if (this.registerForm.valid) {
-      this.handleValidSubmission();
+      // 1. Armazena os dados do formulário
+      const universityId = this.registerForm.get('university')?.value;
+      this.registrationPayload = {
+        name: `${this.registerForm.get('firstName')?.value} ${this.registerForm.get('lastName')?.value}`.trim(),
+        email: this.registerForm.get('email')?.value,
+        password: this.registerForm.get('password')?.value,
+        telephone: this.registerForm.get('telephone')?.value,
+        ...(universityId !== 'none' && {universityId})
+      };
+
+      // 2. Abre o modal da foto instantaneamente
+      this.showPhotoModal = true;
     } else {
       this.markAllFieldsAsTouched();
     }
   }
 
-  // Registro via Google OAuth
   signUpWithGoogle(): void {
     if (this.isLoading) return;
     console.log('Google Sign Up');
   }
 
-  // Registro via Apple Sign In
   signUpWithApple(): void {
     if (this.isLoading) return;
     console.log('Apple Sign Up');
   }
 
-  // Verifica se um campo específico tem erro e foi tocado
   isFieldInvalid(fieldName: string): boolean {
     const field = this.registerForm.get(fieldName);
     return !!(field?.invalid && field.touched);
   }
 
-  // Retorna a mensagem de erro apropriada para um campo
   getFieldError(fieldName: string): string {
     const field = this.registerForm.get(fieldName);
 
@@ -132,14 +139,64 @@ export class Register implements OnInit {
     return this.getPasswordMismatchError(fieldName);
   }
 
-  // Configura o formulário reativo com validações
+  onPhotoSelected(file: File): void {
+    this.finalizeRegistration(file);
+  }
+
+  finalizeRegistration(photo: File): void {
+    if (!this.registrationPayload) {
+      this.errorMessage = 'Ocorreu um erro. Por favor, preencha o formulário novamente.';
+      return;
+    }
+
+    this.isLoading = true;
+    const formData = new FormData();
+
+    // Adiciona os dados do usuário ao FormData
+    Object.keys(this.registrationPayload).forEach(key => {
+      const value = (this.registrationPayload as any)[key];
+      if (value) {
+        formData.append(key, value);
+      }
+    });
+
+    // Adiciona a foto
+    formData.append('profilePhoto', photo, photo.name);
+
+    // Chama o novo método do serviço de autenticação
+    this.authService.register(formData).subscribe({
+      next: () => {
+        console.log('Registro finalizado com sucesso!');
+        this.isLoading = false;
+        this.showPhotoModal = false;
+        this.router.navigate(['/login'], {
+          queryParams: {message: 'Conta criada com sucesso! Por favor, faça o login.'}
+        });
+      },
+      error: (err) => {
+        console.error('Erro na finalização do registro:', err);
+        // Exibe o erro na tela de registro, não no modal
+        this.errorMessage = err.error?.message || 'Ocorreu um erro no registro. Tente novamente.';
+        this.isLoading = false;
+        this.showPhotoModal = false; // Fecha o modal em caso de erro
+      }
+    });
+  }
+
+  onPhotoModalClosed(): void {
+    if (!this.isLoading) {
+      this.showPhotoModal = false;
+      this.registrationPayload = null;
+    }
+  }
+
   private initializeForm(): void {
     this.registerForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
       university: ['', [Validators.required]],
-      role: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
+      telephone: ['', [Validators.required]],
       password: ['', [
         Validators.required,
         Validators.minLength(8),
@@ -152,32 +209,35 @@ export class Register implements OnInit {
     });
   }
 
-  // Validador customizado: verifica se senha e confirmação coincidem
+  private loadUniversities(): void {
+    this.isLoadingUniversities = true;
+    this.universityService.getAllUniversities().subscribe({
+      next: (universities) => {
+        this.universities = universities;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar universidades:', error);
+        this.universities = [];
+      },
+      complete: () => {
+        this.isLoadingUniversities = false;
+      }
+    });
+  }
+
   private passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password');
     const confirmPassword = control.get('confirmPassword');
-
-    if (password?.value && confirmPassword?.value && password.value !== confirmPassword.value) {
-      return {passwordMismatch: true};
-    }
-
-    return null;
+    return password?.value === confirmPassword?.value ? null : {passwordMismatch: true};
   }
 
-  // Validador customizado: verifica força da senha
   private passwordStrengthValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.value;
-
-    if (!password) {
-      return null;
-    }
-
+    if (!password) return null;
     const isValid = Object.values(this.PASSWORD_REGEX).every(regex => regex.test(password));
-
     return isValid ? null : {weakPassword: true};
   }
 
-  // Retorna erro específico para senhas que não coincidem
   private getPasswordMismatchError(fieldName: string): string {
     if (fieldName === 'confirmPassword' && this.registerForm.errors?.['passwordMismatch']) {
       return 'Senhas não coincidem';
@@ -185,34 +245,9 @@ export class Register implements OnInit {
     return '';
   }
 
-  // Processa formulário válido e simula envio para API
-  private handleValidSubmission(): void {
-    this.isLoading = true;
-
-    const formData: UserRegistrationData = {
-      firstName: this.registerForm.get('firstName')?.value,
-      lastName: this.registerForm.get('lastName')?.value,
-      university: this.registerForm.get('university')?.value,
-      role: this.registerForm.get('role')?.value,
-      email: this.registerForm.get('email')?.value,
-      password: this.registerForm.get('password')?.value
-    };
-
-    console.log('Register:', formData);
-
-    // Simula delay de API e redireciona para login
-    setTimeout(() => {
-      this.isLoading = false;
-      this.router.navigate(['/login'], {
-        queryParams: {message: 'Account created successfully! Please sign in.'}
-      });
-    }, 2000);
-  }
-
-  // Marca todos os campos como tocados para exibir erros
   private markAllFieldsAsTouched(): void {
-    Object.keys(this.registerForm.controls).forEach(key => {
-      this.registerForm.get(key)?.markAsTouched();
+    Object.values(this.registerForm.controls).forEach(control => {
+      control.markAsTouched();
     });
   }
 }

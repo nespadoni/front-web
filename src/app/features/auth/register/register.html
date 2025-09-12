@@ -1,4 +1,3 @@
-<!-- ✅ CLASSES CORRIGIDAS PARA REGISTER -->
 <main class="register-page">
   <div class="register-container">
     <section class="register-visual">
@@ -14,6 +13,7 @@
 
         <div class="form-content">
           <form (ngSubmit)="onSubmit()" [formGroup]="registerForm" novalidate>
+
             <!-- Nome e Sobrenome -->
             <div class="form-group form-row">
               <div class="input-wrapper">
@@ -45,36 +45,33 @@
               </div>
             </div>
 
-            <!-- Universidade e Role -->
+            <!-- Universidade -->
             <div class="form-group form-row">
               <div class="input-wrapper">
                 <label class="sr-only" for="university">University</label>
                 <select
                   [class.error]="isFieldInvalid('university')"
+                  [disabled]="isLoadingUniversities"
                   formControlName="university"
                   id="university">
-                  <option disabled selected value="">Select University</option>
-                  <option value="univag">UNIVAG</option>
-                  <option value="ufmt">UFMT</option>
-                  <option value="unic">UNIC</option>
+
+                  <option disabled selected value="">
+                    {{ isLoadingUniversities ? 'Carregando universidades...' : 'Selecione sua universidade' }}
+                  </option>
+
+                  <!-- Opção para não ter universidade -->
+                  <option value="none">🚫 Não sou de nenhuma universidade</option>
+
+                  <!-- Universidades dinâmicas do backend -->
+                  <option *ngFor="let university of universities" [value]="university.id">
+                    {{ university.name }} ({{ university.acronym }})
+                    <span *ngIf="university.city && university.state"> - {{ university.city }}
+                      /{{ university.state }}</span>
+                  </option>
                 </select>
+
                 <div *ngIf="isFieldInvalid('university')" class="error-tooltip">
                   {{ getFieldError('university') }}
-                </div>
-              </div>
-
-              <div class="input-wrapper">
-                <label class="sr-only" for="role">Role</label>
-                <select
-                  [class.error]="isFieldInvalid('role')"
-                  formControlName="role"
-                  id="role">
-                  <option disabled selected value="">Select Role</option>
-                  <option value="member">Member</option>
-                  <option value="player">Player</option>
-                </select>
-                <div *ngIf="isFieldInvalid('role')" class="error-tooltip">
-                  {{ getFieldError('role') }}
                 </div>
               </div>
             </div>
@@ -92,6 +89,22 @@
                   type="email">
                 <div *ngIf="isFieldInvalid('email')" class="error-tooltip">
                   {{ getFieldError('email') }}
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <div class="input-wrapper">
+                <label class="sr-only" for="telephone">Telephone</label>
+                <input
+                  [class.error]="isFieldInvalid('telephone')"
+                  autocomplete="tel"
+                  formControlName="telephone"
+                  id="telephone"
+                  placeholder="Telephone"
+                  type="tel">
+                <div *ngIf="isFieldInvalid('telephone')" class="error-tooltip">
+                  {{ getFieldError('telephone') }}
                 </div>
               </div>
             </div>
@@ -145,10 +158,14 @@
               </div>
             </div>
 
+            <div *ngIf="errorMessage" class="server-error-message">
+              {{ errorMessage }}
+            </div>
+
             <button
               [attr.aria-label]="isLoading ? 'Creating account, please wait' : 'Create account'"
               [class.loading]="isLoading"
-              [disabled]="registerForm.invalid || isLoading"
+              [disabled]="registerForm.invalid || isLoading || isLoadingUniversities"
               type="submit">
               {{ isLoading ? 'Creating account...' : 'Create account' }}
             </button>
@@ -183,4 +200,11 @@
       </div>
     </section>
   </div>
+
+  <app-photo-upload-modal
+    (modalClosed)="onPhotoModalClosed()"
+    (photoSelected)="onPhotoSelected($event)"
+    [isProcessing]="isLoading"
+    [isVisible]="showPhotoModal">
+  </app-photo-upload-modal>
 </main>
