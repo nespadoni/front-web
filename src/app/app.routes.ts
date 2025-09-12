@@ -9,47 +9,64 @@ import {MatchesComponent} from './pages/competitions/matches/matches';
 import {CalendarComponent} from './pages/competitions/calendar/calendar';
 import {HighlightsComponent} from './pages/arena/highlights/highlights';
 import {LeaderboardsComponent} from './pages/arena/leaderboards/leaderboards';
+import {publicGuard} from './features/auth/public.guard';
+import {authGuard} from './features/auth/auth.guard';
 
 export const routes: Routes = [
+  // Rotas públicas (acessíveis apenas se NÃO estiver logado)
   {
     path: 'login',
-    component: Login
+    component: Login,
+    canActivate: [publicGuard]
   },
   {
     path: 'register',
-    component: Register
+    component: Register,
+    canActivate: [publicGuard]
   },
+
+  // Rotas protegidas
   {
     path: 'team-management',
-    component: TeamManagement
+    component: TeamManagement,
+    canActivate: [authGuard]
   },
+
+
   {
     path: 'home',
-    component: Home
+    component: Home,
+    canActivate: [authGuard]
   },
   {
     path: 'live-matches',
-    component: LiveMatchesComponent
+    component: LiveMatchesComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'highlights',
-    component: HighlightsComponent
+    component: HighlightsComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'leaderboards',
-    component: LeaderboardsComponent
+    component: LeaderboardsComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'tournaments',
-    component: TournamentsComponent
+    component: TournamentsComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'matches',
-    component: MatchesComponent
+    component: MatchesComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'calendar',
-    component: CalendarComponent
+    component: CalendarComponent,
+    canActivate: [authGuard]
   },
   {
     path: '',
