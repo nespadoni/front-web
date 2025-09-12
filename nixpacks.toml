@@ -7,6 +7,6 @@ cmds = ['npm ci']
 [phases.build]
 cmds = ['npm run build']
 
-# Aponte para o diretório correto que contém o index.html e outros assets.
+# Aponte para a pasta 'browser', que é o nosso novo outputPath.
 [start]
-cmd = 'caddy file-server --browse --root dist/front-web/browser'
+cmd = 'caddy file-server --browse --root browser'
