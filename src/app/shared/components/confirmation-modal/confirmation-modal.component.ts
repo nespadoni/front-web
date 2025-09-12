@@ -11,7 +11,6 @@ import {ModalConfig, ModalService} from '../../../core/services/modal.service';
   templateUrl: './confirmation-modal.component.html',
   styleUrl: './confirmation-modal.component.scss',
   animations: [
-    // 🌟 ANIMAÇÃO MELHORADA DO OVERLAY
     trigger('overlayAnimation', [
       transition(':enter', [
         style({
@@ -108,7 +107,6 @@ import {ModalConfig, ModalService} from '../../../core/services/modal.service';
 export class ConfirmationModalComponent implements OnInit, OnDestroy {
   isOpen = false;
   config: ModalConfig | null = null;
-  // Estados para animações de hover
   confirmButtonState = 'normal';
   cancelButtonState = 'normal';
   private destroy$ = new Subject<void>();

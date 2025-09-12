@@ -6,41 +6,35 @@ export interface ModalConfig {
   message: string;
   confirmText?: string;
   cancelText?: string;
-  type?: 'warning' | 'danger' | 'info';
+  type?: 'info' | 'warning' | 'danger' | 'success';
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
-  private isModalOpen$ = new BehaviorSubject<boolean>(false);
-  private modalConfig$ = new BehaviorSubject<ModalConfig | null>(null);
-  private confirmCallback?: () => void;
-
-  get isOpen() {
-    return this.isModalOpen$.asObservable();
-  }
-
-  get config() {
-    return this.modalConfig$.asObservable();
-  }
+  private isOpenSubject = new BehaviorSubject<boolean>(false);
+  isOpen = this.isOpenSubject.asObservable();
+  private configSubject = new BehaviorSubject<ModalConfig | null>(null);
+  config = this.configSubject.asObservable();
+  private onConfirmCallback: (() => void) | null = null;
 
   openConfirmationModal(config: ModalConfig, onConfirm: () => void): void {
-    this.modalConfig$.next(config);
-    this.confirmCallback = onConfirm;
-    this.isModalOpen$.next(true);
+    this.configSubject.next(config);
+    this.onConfirmCallback = onConfirm;
+    this.isOpenSubject.next(true);
   }
 
   confirm(): void {
-    if (this.confirmCallback) {
-      this.confirmCallback();
+    if (this.onConfirmCallback) {
+      this.onConfirmCallback();
     }
     this.closeModal();
   }
 
   closeModal(): void {
-    this.isModalOpen$.next(false);
-    this.modalConfig$.next(null);
-    this.confirmCallback = undefined;
+    this.isOpenSubject.next(false);
+    this.configSubject.next(null);
+    this.onConfirmCallback = null;
   }
 }

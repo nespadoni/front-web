@@ -3,7 +3,7 @@
     <div class="sidebar-header">
       <div class="logo-container">
         <div class="logo-wrapper">
-          <a href="/">
+          <a routerLink="/home">
             <img alt="Rivaly Logo"
                  class="main-logo"
                  src="/rivaly-icon-1x.ico">
@@ -20,7 +20,7 @@
             <span class="header-text item-description">ARENA</span>
           </li>
           <li class="sidebar-menu-item">
-            <a class="menu-link" href="">
+            <a class="menu-link" routerLink="/home">
               <span class="sidebar-menu-icon">
                 <i class="fa fa-house"></i>
               </span>
@@ -28,7 +28,7 @@
             </a>
           </li>
           <li class="sidebar-menu-item">
-            <a class="menu-link" href="/live-matches">
+            <a class="menu-link" routerLink="/live-matches">
               <span class="sidebar-menu-icon">
                 <i class="fa fa-tv"></i>
               </span>
@@ -36,7 +36,7 @@
             </a>
           </li>
           <li class="sidebar-menu-item">
-            <a class="menu-link" href="/highlights">
+            <a class="menu-link" routerLink="/highlights">
               <span class="sidebar-menu-icon">
                 <i class="fa fa-star"></i>
               </span>
@@ -44,7 +44,7 @@
             </a>
           </li>
           <li class="sidebar-menu-item">
-            <a class="menu-link" href="/leaderboards">
+            <a class="menu-link" routerLink="/leaderboards">
               <span class="sidebar-menu-icon">
                 <i class="fa fa-medal"></i>
               </span>
@@ -54,13 +54,13 @@
         </ul>
         <div class="divider"></div>
 
-        <!-- PROFILES -->
+        <!-- COMPETITIONS -->
         <ul class="menu-section">
           <li class="sidebar-menu-header">
             <span class="header-text item-description">COMPETITIONS</span>
           </li>
           <li class="sidebar-menu-item">
-            <a class="menu-link" href="/tournaments">
+            <a class="menu-link" routerLink="/tournaments">
               <span class="sidebar-menu-icon">
                 <i class="fa fa-trophy"></i>
               </span>
@@ -68,7 +68,7 @@
             </a>
           </li>
           <li class="sidebar-menu-item">
-            <a class="menu-link" href="/matches">
+            <a class="menu-link" routerLink="/matches">
               <span class="sidebar-menu-icon">
                 <i class="fa fa-flag-checkered"></i>
               </span>
@@ -76,7 +76,7 @@
             </a>
           </li>
           <li class="sidebar-menu-item">
-            <a class="menu-link" href="/calendar">
+            <a class="menu-link" routerLink="/calendar">
               <span class="sidebar-menu-icon">
                 <i class="fa fa-calendar-days"></i>
               </span>
@@ -233,24 +233,42 @@
 
     <!-- User Sidebar -->
     <div class="sidebar-footer">
-      <div class="user-content">
-        <div class="user-avatar">
-          <img alt="User Avatar" src="/assets/images/avatars/woman-avatar.jpg">
+      <ng-container *ngIf="currentUser$ | async as user; else guestView">
+        <div class="user-content">
+          <a [routerLink]="['/profile', user.id]" class="user-avatar" title="Ver Perfil">
+            <!-- Usa diretamente a URL da foto vinda do banco ou uma imagem padrão -->
+            <img
+              [alt]="'Avatar de ' + user.name"
+              [src]="getUserProfilePhotoUrl(user)">
+          </a>
+          <div class="user-info">
+            <a [routerLink]="['/profile', user.id]" class="user-name item-description" title="Ver Perfil">
+              {{ user.name }}
+            </a>
+            <span class="user-role item-description">{{ user.global_role || 'Membro' }}</span>
+          </div>
+          <div class="user-actions">
+            <button (click)="toggleSettings()"
+                    [class.active]="isSettingsOpen"
+                    class="action-btn settings-btn"
+                    title="Configurações"
+                    type="button">
+              <i class="fa fa-bars"></i>
+            </button>
+          </div>
         </div>
-        <div class="user-info">
-          <span class="user-name item-description">Silvia Pocahontas</span>
-          <span class="user-role item-description">Administrator</span>
+      </ng-container>
+
+      <ng-template #guestView>
+        <div class="user-content">
+          <a class="menu-link" routerLink="/login">
+            <span class="sidebar-menu-icon">
+              <i class="fa fa-sign-in-alt"></i>
+            </span>
+            <span class="menu-title item-description">Fazer Login</span>
+          </a>
         </div>
-        <div class="user-actions">
-          <button (click)="toggleSettings()"
-                  [class.active]="isSettingsOpen"
-                  class="action-btn settings-btn"
-                  title="Settings"
-                  type="button">
-            <i class="fa fa-bars"></i>
-          </button>
-        </div>
-      </div>
+      </ng-template>
 
       <!-- Settings Popup -->
       <div [class.open]="isSettingsOpen" class="settings-popup">
@@ -308,5 +326,3 @@
     </div>
   </div>
 </aside>
-
-<app-confirmation-modal></app-confirmation-modal>

@@ -56,6 +56,10 @@
               <a class="forgot-password" routerLink="/forgot-password">Forgot password?</a>
             </div>
 
+            <div *ngIf="errorMessage" class="server-error-message">
+              {{ errorMessage }}
+            </div>
+
             <button
               [attr.aria-label]="isLoading ? 'Signing in, please wait' : 'Sign in'"
               [class.loading]="isLoading"
