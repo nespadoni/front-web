@@ -34,8 +34,8 @@ export interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  public readonly baseUrl = 'http://localhost:8080'; // URL base para imagens
-  private readonly apiUrl = 'http://localhost:8080/api';
+  public readonly baseUrl = 'backend-go-production-c4f4.up.railway.app'; // URL base para imagens
+  private readonly apiUrl = 'backend-go-production-c4f4.up.railway.app/api';
   private readonly TOKEN_KEY = 'authToken';
 
   // BehaviorSubject para armazenar e emitir os dados do usuário

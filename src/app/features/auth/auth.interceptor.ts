@@ -7,7 +7,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const token = authService.getToken();
 
   // Verifica se a URL da requisição é para a API
-  if (token && req.url.startsWith('http://localhost:8080/api/')) {
+  if (token && req.url.startsWith('backend-go-production-c4f4.up.railway.app/api/')) {
     const cloned = req.clone({
       headers: req.headers.set('Authorization', `Bearer ${token}`),
     });
