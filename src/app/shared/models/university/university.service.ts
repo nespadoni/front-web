@@ -17,7 +17,7 @@ interface BackendUniversity {
   providedIn: 'root'
 })
 export class UniversityService {
-  private readonly apiUrl = 'https://backend-go-production-c4f4.up.railway.app/api/universities/';
+  private readonly apiUrl = 'https://backend-go-production-c4f4.up.railway.app/api/universities';
 
   constructor(private readonly http: HttpClient) {
   }
